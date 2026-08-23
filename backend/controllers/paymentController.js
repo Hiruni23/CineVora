@@ -14,7 +14,11 @@ exports.processPayment = async (req, res) => {
     try {
         console.log("1. Payment Request Received:", req.body);
 
-        let { bookingId, showtimeId, seats, amount, paymentMethod, cardLast4, concessions, ticketSubtotal, splitCount, splitBreakdown, splitLabels, ticketTypes } = req.body;
+        let { bookingId, showtimeId, seats, amount, paymentMethod, cardLast4, paymentIdentifier, concessions, ticketSubtotal, splitCount, splitBreakdown, splitLabels, ticketTypes } = req.body;
+        const supportedPaymentMethods = ['Credit Card', 'Debit Card', 'UPI', 'Net Banking', 'Wallet'];
+        if (paymentMethod && !supportedPaymentMethods.includes(paymentMethod)) {
+          return res.status(400).json({ message: 'Unsupported payment method.' });
+        }
         const normalizedConcessions = normalizeConcessions(concessions);
         const concessionsTotal = getConcessionsTotal(normalizedConcessions);
         const seatLabels = Array.isArray(splitLabels) && splitLabels.length > 0
@@ -77,7 +81,8 @@ exports.processPayment = async (req, res) => {
             bookingId: bookingId, 
             amount,
             paymentMethod: paymentMethod || 'Credit Card',
-            cardLast4: cardLast4 || '0000',
+            cardLast4: cardLast4 || 'N/A',
+            paymentIdentifier: paymentIdentifier || 'N/A',
             status: 'Completed'
         });
 

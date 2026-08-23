@@ -1,0 +1,37 @@
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-red) 100%);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+  transition: all 0.25s ease;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.avatar:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
+  border-color: var(--accent-gold);
+}
+
+.avatar-small {
+  width: 34px;
+  height: 34px;
+  font-size: 14px;
+}
+
+.avatar-medium {
+  width: 42px;
+  height: 42px;
+  font-size: 16px;
+}
+
+.avatar-large {
+  width: 84px;
+  height: 84px;
+  font-size: 32px;
+}

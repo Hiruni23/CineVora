@@ -1,0 +1,550 @@
+/* =========================================================
+   CINEMA BOOKING SYSTEM — THEME
+  Classic cinema: dark blue stage, velvet red, marquee gold.
+   Import this once in index.js (before other CSS) so the
+   variables and base classes are available everywhere.
+
+   Google Fonts loaded here for display + body faces.
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  /* --- Surfaces --- */
+  --bg-primary: #07111F;      /* page background */
+  --bg-secondary: #0D1B2D;    /* navbar, cards, seat map panel */
+  --bg-tertiary: #12243A;     /* hover / input backgrounds */
+  --bg-elevated: #18314D;     /* modals, dropdowns */
+
+  /* --- Brand --- */
+  --accent-red: #C8102E;
+  --accent-red-hover: #A50D26;
+  --accent-gold: #D4AF37;
+  --accent-gold-hover: #B8962E;
+
+  /* --- Seat states --- */
+  --seat-available: #10243A;
+  --seat-available-border: #284968;
+  --seat-selected: #D4AF37;
+  --seat-booked: #4A1D33;      /* muted, not the same red as buttons */
+
+  /* --- Semantic --- */
+  --success: #2ECC71;
+  --danger: #E74C3C;
+  --warning: #E8A33D;
+
+  /* --- Text --- */
+  --text-primary: #F5F5F5;
+  --text-secondary: #A6A6A6;
+  --text-muted: #6B6B6B;
+  --text-on-accent: #07111F;  /* dark text on gold fills */
+
+  /* --- Borders / shape --- */
+  --border: #203A56;
+  --border-strong: #31587E;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+
+  /* --- Elevation --- */
+  --shadow-card: 0 10px 28px rgba(0, 10, 24, 0.45);
+  --shadow-modal: 0 16px 44px rgba(0, 10, 24, 0.65);
+
+  /* --- Type --- */
+  --font-display: 'Cinzel', serif;
+  --font-body: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* =========================================================
+     LEGACY VARIABLE MAPPING
+     Maps old variable names used throughout component CSS
+     files to the new cinema red/gold palette, so every
+     existing file adopts the new theme automatically.
+     ========================================================= */
+
+  /* Old surface variables */
+  --bg-color: #07111F;
+  --bg-color-light: #0D1B2D;
+  --bg-card: #0D1B2D;
+  --bg-glass: rgba(13, 27, 45, 0.92);
+  --bg-glass-hover: rgba(18, 36, 58, 0.96);
+
+  /* Old brand / accent variables */
+  --color-primary: #C8102E;
+  --color-secondary: #A50D26;
+  --color-accent: #C8102E;
+  --color-success: #2ECC71;
+  --color-error: #E74C3C;
+  --accent-secondary: #D4AF37;   /* was cyan, now gold */
+  --accent-pink: #C8102E;        /* was pink, now velvet red */
+  --accent-emerald: #2ECC71;
+
+  /* Old seat variables (kept for SeatMap.css) */
+  --seat-unavailable: #3D3D3D;
+
+  /* Old gradient variables → new cinema palette */
+  --gradient-main: linear-gradient(135deg, #C8102E 0%, #8F1027 100%);
+  --gradient-neon: linear-gradient(135deg, #D4AF37 0%, #1D6FA8 100%);
+  --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.03) 100%);
+  --gradient-dark: linear-gradient(180deg, rgba(7, 17, 31, 0) 0%, #07111F 100%);
+
+  /* Old text variables */
+  --text-main: #F5F5F5;
+  --text-dim: #6B6B6B;
+
+  /* Old border & shadow variables */
+  --border-glass: 1px solid rgba(255, 255, 255, 0.08);
+  --border-glow: 1px solid rgba(200, 16, 46, 0.4);
+  --shadow-neon: 0 0 20px rgba(200, 16, 46, 0.35);
+  --shadow-glass: 0 12px 40px 0 rgba(0, 0, 0, 0.55);
+  --shadow-cyan: 0 0 20px rgba(212, 175, 55, 0.25);
+
+  /* Old radii (keep radius-full for existing pill shapes) */
+  --radius-full: 9999px;
+
+  /* Old font variables */
+  --font-heading: 'Cinzel', serif;
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(29, 111, 168, 0.18), transparent 26%),
+    radial-gradient(circle at top right, rgba(13, 67, 118, 0.18), transparent 24%),
+    linear-gradient(180deg, #07111F 0%, #0A1828 100%);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  margin: 0;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: 0.03em;
+  color: var(--text-primary);
+  margin: 0 0 0.5em;
+}
+
+a {
+  color: var(--accent-gold);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--accent-gold-hover);
+}
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+.navbar {
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-logo {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--accent-gold);
+  letter-spacing: 0.05em;
+}
+
+.navbar-links a {
+  color: var(--text-secondary);
+  margin-left: 24px;
+  font-size: 14px;
+}
+.navbar-links a:hover,
+.navbar-links a.active {
+  color: var(--text-primary);
+}
+.navbar-links a.active {
+  border-bottom: 2px solid var(--accent-red);
+  padding-bottom: 4px;
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+.btn:active {
+  transform: scale(0.98);
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--accent-red);
+  color: var(--text-primary);
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--accent-red-hover);
+}
+
+.btn-gold {
+  background: var(--accent-gold);
+  color: var(--text-on-accent);
+}
+.btn-gold:hover:not(:disabled) {
+  background: var(--accent-gold-hover);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-strong);
+}
+.btn-secondary:hover:not(:disabled) {
+  background: var(--bg-tertiary);
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: var(--text-primary);
+}
+
+/* =========================================================
+   MOVIE CARDS / GRID
+   ========================================================= */
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 24px 32px;
+}
+
+.movie-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.movie-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-gold);
+}
+
+.movie-card-poster {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+.movie-card-body {
+  padding: 12px 14px;
+}
+
+.movie-card-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 6px;
+  color: var(--text-primary);
+}
+
+.movie-card-rating {
+  color: var(--accent-gold);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.movie-card-meta {
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+/* Badge for genre / age rating / "new" tags */
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-strong);
+}
+.badge-gold {
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--accent-gold);
+  border-color: rgba(212, 175, 55, 0.4);
+}
+
+/* =========================================================
+   SEAT MAP
+   ========================================================= */
+
+.seat-map {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  border: 1px solid var(--border);
+}
+
+.theme-seat-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 8px;
+  max-width: 480px;
+  margin: 0 auto 20px;
+}
+
+.seat {
+  aspect-ratio: 1;
+  border-radius: var(--radius-sm);
+  background: var(--seat-available);
+  border: 1px solid var(--seat-available-border);
+  cursor: pointer;
+  transition: background 0.1s ease, transform 0.1s ease;
+}
+.seat:hover {
+  border-color: var(--accent-gold);
+  transform: scale(1.05);
+}
+.seat.selected {
+  background: var(--seat-selected);
+  border-color: var(--seat-selected);
+}
+.seat.booked {
+  background: var(--seat-booked);
+  border-color: var(--seat-booked);
+  cursor: not-allowed;
+}
+.seat.booked:hover {
+  transform: none;
+}
+
+.seat-legend {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.seat-legend-swatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  margin-right: 6px;
+  vertical-align: -2px;
+}
+
+/* =========================================================
+   BOOKING SUMMARY / TICKET
+   ========================================================= */
+
+.ticket-card {
+  background: var(--bg-secondary);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+}
+
+.ticket-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+.ticket-row:last-child {
+  border-bottom: none;
+}
+.ticket-total {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent-gold);
+}
+
+/* =========================================================
+   FORMS (login / register / OTP)
+   ========================================================= */
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-label {
+  display: block;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.form-input {
+  width: 100%;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+.form-input:focus {
+  outline: none;
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+.form-input.error {
+  border-color: var(--danger);
+}
+
+.form-error-text {
+  color: var(--danger);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.auth-card {
+  max-width: 400px;
+  margin: 60px auto;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  box-shadow: var(--shadow-card);
+}
+
+/* =========================================================
+   ALERTS / TOASTS
+   ========================================================= */
+
+.alert {
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  font-size: 14px;
+  border: 1px solid transparent;
+}
+.alert-success {
+  background: rgba(46, 204, 113, 0.12);
+  color: var(--success);
+  border-color: rgba(46, 204, 113, 0.3);
+}
+.alert-error {
+  background: rgba(231, 76, 60, 0.12);
+  color: var(--danger);
+  border-color: rgba(231, 76, 60, 0.3);
+}
+.alert-warning {
+  background: rgba(232, 163, 61, 0.12);
+  color: var(--warning);
+  border-color: rgba(232, 163, 61, 0.3);
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal {
+  background: var(--bg-elevated);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  max-width: 480px;
+  width: 90%;
+  box-shadow: var(--shadow-modal);
+  border: 1px solid var(--border-strong);
+}
+
+/* =========================================================
+   ADMIN DASHBOARD TABLE
+   ========================================================= */
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.admin-table th {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  text-align: left;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 12px 16px;
+}
+.admin-table td {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border);
+  font-size: 14px;
+}
+.admin-table tr:hover td {
+  background: var(--bg-tertiary);
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  padding: 32px;
+  color: var(--text-muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 640px) {
+  .navbar {
+    padding: 12px 16px;
+  }
+  .movie-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    padding: 16px;
+    gap: 14px;
+  }
+  .seat-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .auth-card {
+    margin: 30px 16px;
+    padding: 24px;
+  }
+}
