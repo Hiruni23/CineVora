@@ -1,4 +1,4 @@
-# Cinema Booking System
+# CineVora
 
 A full-stack web application for managing cinema operations, movie bookings, and seat reservations with real time features and secure payment processing.
 
@@ -47,8 +47,8 @@ A full-stack web application for managing cinema operations, movie bookings, and
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/cinema-booking-system.git
-cd cinema-booking-system
+git clone https://github.com/Hiruni23/CineVora.git
+cd CineVora
 ```
 
 ### 2. Backend Setup
@@ -212,7 +212,7 @@ The project includes GitHub Actions for automated testing:
 ## 🏗️ Project Structure
 
 ```
-cinema-booking-system/
+CineVora/
 ├── backend/
 │   ├── controllers/        # Request handlers
 │   ├── models/            # Database schemas
