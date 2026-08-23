@@ -1,0 +1,332 @@
+.verify-page-container {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #1c1917 0%, #0c0a09 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  color: #fff;
+  font-family: var(--font-main, system-ui, -apple-system, sans-serif);
+}
+
+.verify-card-wrapper {
+  background: linear-gradient(160deg, #18181b 0%, #09090b 100%);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 
+    0 30px 80px rgba(0, 0, 0, 0.9),
+    0 0 50px rgba(200, 16, 46, 0.25);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Header */
+.verify-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  background: linear-gradient(90deg, rgba(200, 16, 46, 0.25) 0%, rgba(212, 175, 55, 0.15) 100%);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.verify-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo {
+  font-size: 1.8rem;
+}
+
+.brand-name {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #d4af37;
+  letter-spacing: 1px;
+  font-family: var(--font-display, sans-serif);
+}
+
+.brand-sub {
+  font-size: 0.68rem;
+  color: #a1a1aa;
+  letter-spacing: 0.8px;
+  font-weight: 600;
+}
+
+.verify-badge-valid {
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid #22c55e;
+  color: #4ade80;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.3);
+}
+
+/* Hero */
+.verify-movie-hero {
+  display: flex;
+  gap: 20px;
+  padding: 24px;
+  align-items: center;
+}
+
+.verify-poster {
+  width: 95px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+  flex-shrink: 0;
+}
+
+.verify-movie-meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.verify-movie-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  margin: 0 0 6px;
+  color: #ffffff;
+  font-family: var(--font-display, sans-serif);
+  line-height: 1.25;
+}
+
+.verify-genre {
+  font-size: 0.85rem;
+  color: #d4d4d8;
+  margin: 0 0 6px;
+}
+
+.verify-duration {
+  font-size: 0.8rem;
+  color: #a1a1aa;
+  margin-bottom: 8px;
+}
+
+.verify-guest {
+  font-size: 0.85rem;
+  color: #e4e4e7;
+  margin: 6px 0 0;
+}
+
+/* Tear Line */
+.verify-tear-notch-row {
+  position: relative;
+  padding: 0 16px;
+  margin: 6px 0;
+}
+
+.tear-line {
+  border-top: 2px dashed rgba(212, 175, 55, 0.4);
+}
+
+.notch-left, .notch-right {
+  position: absolute;
+  top: 50%;
+  width: 24px;
+  height: 24px;
+  background-color: #0c0a09;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+}
+
+.notch-left {
+  left: -12px;
+  box-shadow: inset -2px 0 4px rgba(0,0,0,0.8), 2px 0 0 rgba(212, 175, 55, 0.4);
+}
+
+.notch-right {
+  right: -12px;
+  box-shadow: inset 2px 0 4px rgba(0,0,0,0.8), -2px 0 0 rgba(212, 175, 55, 0.4);
+}
+
+/* Grid */
+.verify-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  padding: 24px;
+}
+
+.verify-grid-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.grid-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #71717a;
+  letter-spacing: 1.2px;
+}
+
+.grid-val {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.highlight-seat {
+  color: #d4af37;
+}
+
+/* Finance */
+.verify-finance {
+  background: rgba(255, 255, 255, 0.03);
+  margin: 0 24px 20px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.finance-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+  color: #e4e4e7;
+}
+
+.finance-price {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #d4af37;
+  font-family: var(--font-display, sans-serif);
+}
+
+.finance-saved {
+  color: #4ade80;
+  font-weight: 700;
+}
+
+/* QR Footer */
+.verify-qr-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  background: linear-gradient(180deg, rgba(200, 16, 46, 0.08) 0%, rgba(0, 0, 0, 0.5) 100%);
+  border-top: 1px solid rgba(212, 175, 55, 0.25);
+  gap: 12px;
+  text-align: center;
+}
+
+.verify-qr-img {
+  width: 170px;
+  height: 170px;
+  background: #ffffff;
+  padding: 10px;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+}
+
+.verify-ref-tag {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px dashed rgba(212, 175, 55, 0.5);
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #ffffff;
+  font-family: monospace;
+}
+
+.verify-security-note {
+  font-size: 0.72rem;
+  color: #a1a1aa;
+  margin: 4px 0 0;
+}
+
+/* Actions */
+.verify-actions {
+  display: flex;
+  gap: 12px;
+  padding: 0 24px 24px;
+}
+
+.verify-btn {
+  flex: 1;
+  height: 48px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.print-btn {
+  background: #c8102e;
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(200, 16, 46, 0.4);
+}
+
+.print-btn:hover {
+  background: #e01234;
+  transform: translateY(-2px);
+}
+
+.home-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.home-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Loading & Error States */
+.verify-card-loading,
+.verify-card-error {
+  text-align: center;
+  padding: 50px 30px;
+  background: #18181b;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  max-width: 420px;
+  width: 100%;
+}
+
+.verify-home-btn {
+  margin-top: 20px;
+  background: #c8102e;
+  color: #fff;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Print Overrides */
+@media print {
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .verify-card-wrapper {
+    box-shadow: none !important;
+    border: 2px solid #000 !important;
+    max-width: 100% !important;
+  }
+}
