@@ -1,6 +1,6 @@
 # Cinema Booking System
 
-A full-stack web application for managing cinema operations, movie bookings, and seat reservations with real-time features and secure payment processing.
+A full-stack web application for managing cinema operations, movie bookings, and seat reservations with real time features and secure payment processing.
 
 ## 🎬 Features
 
