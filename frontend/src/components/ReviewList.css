@@ -1,0 +1,209 @@
+/* ── Review List — Compact Professional ── */
+
+.rl-root {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rl-loading {
+  padding: 32px 0;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+/* ── Stars ── */
+.rl-stars { display: inline-flex; gap: 1px; }
+.rl-star  { font-size: 0.95rem; color: var(--border-strong); }
+.rl-star--on { color: var(--accent-gold); }
+
+/* ══════════════════
+   SUMMARY ROW
+   ══════════════════ */
+.rl-summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  flex-wrap: wrap;
+}
+
+.rl-avg {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--accent-gold);
+  line-height: 1;
+  font-family: var(--font-display);
+}
+
+.rl-count {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  flex: 1;
+}
+
+/* Sort dropdown */
+.rl-sort {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 5px 10px;
+  cursor: pointer;
+  outline: none;
+  font-family: var(--font-body);
+  margin-left: auto;
+}
+.rl-sort option { background: var(--bg-elevated); }
+
+/* ══════════════════
+   CARDS
+   ══════════════════ */
+.rl-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rl-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  transition: border-color 0.18s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.rl-card:hover {
+  border-color: rgba(212, 175, 55, 0.22);
+}
+
+/* Card header */
+.rl-card-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Avatar */
+.rl-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-red));
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Meta */
+.rl-meta {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.rl-meta-top {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.rl-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.rl-verified {
+  font-size: 0.67rem;
+  font-weight: 700;
+  color: #27ae60;
+  letter-spacing: 0.04em;
+}
+.rl-date {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+/* Rating column */
+.rl-rating-col { flex-shrink: 0; }
+
+/* Comment */
+.rl-comment-wrap { display: flex; flex-direction: column; gap: 4px; }
+.rl-comment {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin: 0;
+}
+.rl-comment--clamped {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.rl-toggle {
+  background: none;
+  border: none;
+  font-size: 0.77rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  cursor: pointer;
+  padding: 0;
+  align-self: flex-start;
+  font-family: var(--font-body);
+}
+.rl-toggle:hover { opacity: 0.75; }
+
+/* Empty */
+.rl-empty {
+  text-align: center;
+  padding: 36px 16px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* ══════════════════
+   PAGINATION
+   ══════════════════ */
+.rl-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 8px 0;
+}
+.rl-page-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-strong);
+  color: var(--text-secondary);
+  padding: 7px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: var(--font-body);
+}
+.rl-page-btn:hover:not(:disabled) {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+  background: rgba(212, 175, 55, 0.07);
+}
+.rl-page-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.rl-page-info {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
