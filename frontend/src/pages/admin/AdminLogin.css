@@ -1,155 +1,22 @@
-.admin-login-wrapper {
+/* Admin Login imports shared styles from Login.css */
+@import '../customers/Login.css';
+
+.admin-badge-row {
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 80px);
-  width: 100%;
-  background: var(--bg-primary);
-  padding: 40px 20px;
+  margin-bottom: 12px;
 }
 
-.admin-login-wrapper .admin-login-form-box {
-  width: 440px;
-  background: rgba(26, 26, 26, 0.92);
-  backdrop-filter: blur(24px);
-  padding: 44px;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
-  border: 1px solid var(--border);
-  color: var(--text-primary);
-  position: relative;
-}
-
-.back-button {
-  position: absolute;
-  top: 24px;
-  left: 24px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid var(--border);
-  color: var(--text-primary);
-  font-size: 14px;
-  padding: 8px 14px;
-  border-radius: var(--radius-full);
-  cursor: pointer;
-  display: flex;
+.admin-badge {
+  display: inline-flex;
   align-items: center;
   gap: 6px;
-  transition: all 0.25s ease;
-  z-index: 10;
-}
-
-.back-button:hover {
   background: rgba(212, 175, 55, 0.12);
-  border-color: var(--accent-gold);
+  border: 1px solid rgba(212, 175, 55, 0.35);
   color: var(--accent-gold);
-  transform: translateX(-3px);
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
-}
-
-form h1 {
-  font-size: 2.2rem;
+  font-size: 0.72rem;
   font-weight: 800;
-  text-align: center;
-  margin: 10px 0 28px;
-  font-family: var(--font-display);
-  background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-red) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  letter-spacing: 0.03em;
-}
-
-form .admin-login-input-box {
-  position: relative;
-  width: 100%;
-  height: 52px;
-  margin: 24px 0;
-}
-
-.admin-login-input-box input {
-  width: 100%;
-  height: 100%;
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border-strong);
-  outline: none;
-  border-radius: var(--radius-full);
-  font-size: 0.95rem;
-  color: var(--text-primary);
-  padding: 0 50px 0 24px;
-  box-sizing: border-box;
-  font-family: inherit;
-  transition: all 0.25s ease;
-}
-
-.admin-login-input-box input:focus {
-  border-color: var(--accent-gold);
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
-}
-
-.admin-login-input-box input::placeholder {
-  color: var(--text-muted);
-}
-
-.admin-login-input-box .icon {
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 18px;
-  color: var(--text-secondary);
-}
-
-form .admin-login-forgot-password {
-  font-size: 0.88rem;
-  margin: -12px 0 20px;
-  text-align: right;
-}
-
-.admin-login-forgot-password a {
-  color: var(--accent-gold);
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.admin-login-forgot-password a:hover {
-  text-decoration: underline;
-  color: #fff;
-}
-
-form button {
-  width: 100%;
-  height: 50px;
-  border: none;
-  outline: none;
-  border-radius: var(--radius-full);
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 700;
-  background: var(--accent-red);
-  color: #ffffff;
-  box-shadow: 0 4px 20px rgba(200, 16, 46, 0.4);
-  transition: all 0.25s ease;
-}
-
-form button:hover {
-  transform: translateY(-2px);
-  background: var(--accent-red-hover);
-  box-shadow: 0 8px 25px rgba(200, 16, 46, 0.6);
-}
-
-form .register {
-  font-size: 0.9rem;
-  text-align: center;
-  margin: 20px 0 0;
-  color: var(--text-secondary);
-}
-
-.register p a {
-  color: var(--accent-gold);
-  text-decoration: none;
-  font-weight: 700;
-}
-
-.register p a:hover {
-  text-decoration: underline;
+  letter-spacing: 0.1em;
+  padding: 4px 12px;
+  border-radius: 100px;
 }
