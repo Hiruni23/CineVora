@@ -1,0 +1,3 @@
+/* Register page shares all auth styles defined in Login.css.
+   Both pages use the same .auth-* class names. */
+@import './Login.css';
