@@ -84,7 +84,7 @@ const Topbar = () => {
 
     socket.on("receive_notification", (newNotif) => {
       setUnreadCount((prev) => prev + 1);
-      toast.info(`🔔 ${newNotif.message}`);
+      toast.info(newNotif.message);
     });
 
     return () => {
