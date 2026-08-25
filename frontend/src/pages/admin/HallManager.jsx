@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { getHalls, createHall, deleteHall, updateHall } from "../../services/hallService"; 
 
-import "./HallManager.css"; 
+import "./HallManager.css";
+import "./admin-theme.css";
+
 
 const HallManager = () => {
   const [halls, setHalls] = useState([]);

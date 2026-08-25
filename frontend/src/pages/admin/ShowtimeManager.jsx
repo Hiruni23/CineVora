@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { getShowtimes, deleteShowtime } from "../../services/showtimeService"; 
 import "./ShowtimeManager.css";
+import "./admin-theme.css";
+
 
 const ShowtimeManager = () => {
   const navigate = useNavigate();

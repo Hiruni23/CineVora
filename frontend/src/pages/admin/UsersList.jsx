@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FaUser, FaEnvelope, FaCalendar, FaUserShield } from 'react-icons/fa';
 import './UsersList.css';
+import './admin-theme.css';
+
 import API from '../../services/api';
 
 const UsersList = () => {
