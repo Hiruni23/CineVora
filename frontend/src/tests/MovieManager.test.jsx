@@ -1,15 +1,14 @@
 import React from "react";
-import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import MovieManager from "../pages/admin/MovieManager";
 import "@testing-library/jest-dom";
+import MovieManager from "../pages/admin/MovieManager";
+import * as movieService from "../services/movieService";
 
 jest.mock("../services/movieService", () => ({
   getMovies: jest.fn(),
   deleteMovie: jest.fn(),
 }));
-
-import * as movieService from "../services/movieService";
 
 const mockNavigate = jest.fn();
 jest.mock("react-router-dom", () => ({
@@ -63,10 +62,8 @@ describe("MovieManager Component", () => {
     );
 
     expect(screen.getByText(/Loading movies/i)).toBeInTheDocument();
-    await waitFor(() => {
-      expect(screen.getByText(/Movie 1/i)).toBeInTheDocument();
-      expect(screen.getByText(/Movie 2/i)).toBeInTheDocument();
-    });
+    expect(await screen.findByText(/Movie 1/i)).toBeInTheDocument();
+    expect(screen.getByText(/Movie 2/i)).toBeInTheDocument();
   });
 
   test("Add New Movie button navigates correctly", async () => {
@@ -76,7 +73,7 @@ describe("MovieManager Component", () => {
       </MemoryRouter>
     );
 
-    await waitFor(() => screen.getByText(/Add New Movie/i));
+    await screen.findByText(/Add New Movie/i);
 
     fireEvent.click(screen.getByText(/Add New Movie/i));
     expect(mockNavigate).toHaveBeenCalledWith("/admin/movies/add");
@@ -89,10 +86,9 @@ describe("MovieManager Component", () => {
       </MemoryRouter>
     );
 
-    await waitFor(() => screen.getByText(/Movie 1/i));
+    await screen.findByText(/Movie 1/i);
 
-    const editButton = document.querySelector(".moviemanager-edit");
-    fireEvent.click(editButton);
+    fireEvent.click(screen.getByRole("button", { name: /Edit Movie 1/i }));
 
     expect(mockNavigate).toHaveBeenCalledWith("/admin/movies/edit/1");
   });
@@ -104,14 +100,11 @@ describe("MovieManager Component", () => {
       </MemoryRouter>
     );
 
-    await waitFor(() => screen.getByText(/Movie 1/i));
+    await screen.findByText(/Movie 1/i);
 
-    const deleteButton = document.querySelector(".moviemanager-delete");
-    fireEvent.click(deleteButton);
+    fireEvent.click(screen.getByRole("button", { name: /Delete Movie 1/i }));
 
-    await waitFor(() => {
-      expect(movieService.deleteMovie).toHaveBeenCalledWith("1");
-      expect(screen.queryByText(/Movie 1/i)).not.toBeInTheDocument();
-    });
+    expect(movieService.deleteMovie).toHaveBeenCalledWith("1");
+    await waitFor(() => expect(screen.queryByText(/Movie 1/i)).not.toBeInTheDocument());
   });
 });

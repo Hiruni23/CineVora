@@ -5,7 +5,9 @@ import "./MovieCard.css";
 const MovieCard = ({ movie }) => {
   const navigate = useNavigate();
   const genreText = Array.isArray(movie.genre) ? movie.genre.join(", ") : movie.genre;
-  const displayRating = movie.averageRating > 0 ? movie.averageRating.toFixed(1) : (movie.rating || 'N/A');
+  const displayRating = Number(movie.averageRating) > 0
+    ? Number(movie.averageRating).toFixed(1)
+    : (movie.rating || 'N/A');
 
   return (
     <div className="movie-card">
@@ -41,7 +43,7 @@ const MovieCard = ({ movie }) => {
 
       <div className="movie-info">
         <h4 className="movie-title">{movie.title}</h4>
-        <span className="movie-meta">{genreText} • {movie.duration} mins</span>
+        <span className="movie-meta">{genreText} | {movie.duration} mins</span>
       </div>
     </div>
   );
