@@ -3,6 +3,8 @@ import { FaSearch, FaDownload, FaEye, FaTimes, FaCheckCircle, FaTimesCircle, FaM
 import { MdRefresh, MdBarChart } from 'react-icons/md';
 import axios from 'axios';
 import './AdminBookings.css';
+import './admin-theme.css';
+
 
 const AdminBookings = () => {
   const [bookings, setBookings] = useState([]);

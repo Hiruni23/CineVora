@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react'; // Added useCallback
 import axios from 'axios';
 import PageLayout from '../../components/PageLayout'; 
-import './AdminPayments.css'; 
+import './AdminPayments.css';
+import './admin-theme.css';
+
 
 const AdminPayments = () => {
     const [payments, setPayments] = useState([]);

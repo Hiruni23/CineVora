@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { getMovies, deleteMovie } from "../../services/movieService";
 import "./MovieManager.css";
+import "./admin-theme.css";
+
 
 const MovieManager = () => {
   const navigate = useNavigate();
