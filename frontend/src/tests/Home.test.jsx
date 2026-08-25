@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
 import Home from "../pages/customers/Home";
@@ -29,18 +29,14 @@ describe("Home Component", () => {
 
   test("renders Now Showing and Coming Soon sections", async () => {
     renderHome();
-    await waitFor(() => {
-      expect(screen.getByText("Now Showing")).toBeInTheDocument();
-      expect(screen.getByText("Coming Soon")).toBeInTheDocument();
-    });
+    expect(await screen.findByText("Now Showing")).toBeInTheDocument();
+    expect(screen.getByText("Coming Soon")).toBeInTheDocument();
   });
 
   test("renders movies in the correct sections", async () => {
     renderHome();
-    await waitFor(() => {
-      expect(screen.getByText("Action Movie")).toBeInTheDocument();
-      expect(screen.getByText("Drama Movie")).toBeInTheDocument();
-      expect(screen.getByText("Comedy Movie")).toBeInTheDocument();
-    });
+    expect(await screen.findByText("Action Movie")).toBeInTheDocument();
+    expect(screen.getByText("Drama Movie")).toBeInTheDocument();
+    expect(screen.getByText("Comedy Movie")).toBeInTheDocument();
   });
 });

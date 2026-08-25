@@ -1,21 +1,21 @@
 import React from "react";
-import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import MovieManager from "../pages/admin/MovieManager";
 import "@testing-library/jest-dom";
+import MovieManager from "../pages/admin/MovieManager";
+import * as movieService from "../services/movieService";
 
 jest.mock("../services/movieService", () => ({
   getMovies: jest.fn(),
   deleteMovie: jest.fn(),
 }));
 
-import * as movieService from "../services/movieService";
-
 const mockNavigate = jest.fn();
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useNavigate: () => mockNavigate,
 }));
+
 const mockMovies = [
   {
     _id: "1",
@@ -46,7 +46,7 @@ const mockMovies = [
 const originalConfirm = window.confirm;
 beforeEach(() => {
   jest.clearAllMocks();
-  window.confirm = jest.fn(() => true); 
+  window.confirm = jest.fn(() => true);
   movieService.getMovies.mockResolvedValue(mockMovies);
   movieService.deleteMovie.mockResolvedValue({});
 });
@@ -63,10 +63,8 @@ describe("MovieManager Component", () => {
     );
 
     expect(screen.getByText(/Loading movies/i)).toBeInTheDocument();
-    await waitFor(() => {
-      expect(screen.getByText(/Movie 1/i)).toBeInTheDocument();
-      expect(screen.getByText(/Movie 2/i)).toBeInTheDocument();
-    });
+    expect(await screen.findByText(/Movie 1/i)).toBeInTheDocument();
+    expect(screen.getByText(/Movie 2/i)).toBeInTheDocument();
   });
 
   test("Add New Movie button navigates correctly", async () => {
@@ -76,9 +74,8 @@ describe("MovieManager Component", () => {
       </MemoryRouter>
     );
 
-    await waitFor(() => screen.getByText(/Add New Movie/i));
-
-    fireEvent.click(screen.getByText(/Add New Movie/i));
+    const addBtn = await screen.findByText(/Add New Movie/i);
+    fireEvent.click(addBtn);
     expect(mockNavigate).toHaveBeenCalledWith("/admin/movies/add");
   });
 
@@ -89,10 +86,9 @@ describe("MovieManager Component", () => {
       </MemoryRouter>
     );
 
-    await waitFor(() => screen.getByText(/Movie 1/i));
-
-    const editButton = document.querySelector(".moviemanager-edit");
-    fireEvent.click(editButton);
+    await screen.findByText(/Movie 1/i);
+    const editButtons = screen.getAllByTitle("Edit Movie");
+    fireEvent.click(editButtons[0]);
 
     expect(mockNavigate).toHaveBeenCalledWith("/admin/movies/edit/1");
   });
@@ -104,13 +100,14 @@ describe("MovieManager Component", () => {
       </MemoryRouter>
     );
 
-    await waitFor(() => screen.getByText(/Movie 1/i));
-
-    const deleteButton = document.querySelector(".moviemanager-delete");
-    fireEvent.click(deleteButton);
+    await screen.findByText(/Movie 1/i);
+    const deleteButtons = screen.getAllByTitle("Delete Movie");
+    fireEvent.click(deleteButtons[0]);
 
     await waitFor(() => {
       expect(movieService.deleteMovie).toHaveBeenCalledWith("1");
+    });
+    await waitFor(() => {
       expect(screen.queryByText(/Movie 1/i)).not.toBeInTheDocument();
     });
   });

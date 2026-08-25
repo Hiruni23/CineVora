@@ -57,5 +57,11 @@
         "statements": 70
       }
     }
+  },
+  "config": {
+    "mongodbMemoryServer": {
+      "systemBinary": "C:\\Program Files\\MongoDB\\Server\\8.2\\bin\\mongod.exe",
+      "version": "7.0.14"
+    }
   }
 }

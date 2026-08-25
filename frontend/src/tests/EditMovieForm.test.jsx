@@ -44,20 +44,17 @@ describe("EditMovie Component", () => {
       </MemoryRouter>
     );
 
-    await waitFor(() => {
-      expect(screen.getByDisplayValue("Original Movie")).toBeInTheDocument();
-      expect(screen.getByDisplayValue("Original Description")).toBeInTheDocument();
-      expect(screen.getByDisplayValue("120")).toBeInTheDocument();
-      expect(screen.getByDisplayValue("8")).toBeInTheDocument();
-      expect(screen.getByDisplayValue("poster.jpg")).toBeInTheDocument();
-      expect(screen.getByDisplayValue("banner.jpg")).toBeInTheDocument();
-      expect(screen.getByDisplayValue("trailer.mp4")).toBeInTheDocument();
+    expect(await screen.findByDisplayValue("Original Movie")).toBeInTheDocument();
+    expect(screen.getByDisplayValue("Original Description")).toBeInTheDocument();
+    expect(screen.getByDisplayValue("120")).toBeInTheDocument();
+    expect(screen.getByDisplayValue("8")).toBeInTheDocument();
+    expect(screen.getByDisplayValue("poster.jpg")).toBeInTheDocument();
+    expect(screen.getByDisplayValue("banner.jpg")).toBeInTheDocument();
+    expect(screen.getByDisplayValue("trailer.mp4")).toBeInTheDocument();
+    expect(screen.getByLabelText("Action")).toBeChecked();
 
-      expect(screen.getByLabelText("Action")).toBeChecked();
-
-      const statusSelect = screen.getByLabelText(/Status/i);
-      expect(statusSelect.value).toBe("now");
-    });
+    const statusSelect = screen.getByLabelText(/Status/i);
+    expect(statusSelect.value).toBe("now");
   });
 
   test("submits form and calls updateMovie API", async () => {
@@ -67,7 +64,7 @@ describe("EditMovie Component", () => {
       </MemoryRouter>
     );
 
-    await waitFor(() => screen.getByDisplayValue("Original Movie"));
+    await screen.findByDisplayValue("Original Movie");
 
     fireEvent.change(screen.getByLabelText(/Title/i), {
       target: { value: "Updated Movie" },
@@ -83,19 +80,20 @@ describe("EditMovie Component", () => {
 
     await waitFor(() => {
       expect(updateMovie).toHaveBeenCalledTimes(1);
-      expect(updateMovie).toHaveBeenCalledWith("1", {
-        title: "Updated Movie",
-        description: "Original Description",
-        duration: 120,
-        genre: ["Action"], 
-        rating: 9,
-        posterUrl: "poster.jpg",
-        bannerUrl: "banner.jpg",
-        trailerUrl: "trailer.mp4",
-        status: "soon",
-      });
-
-      expect(mockNavigate).toHaveBeenCalledWith("/admin/movies");
     });
+
+    expect(updateMovie).toHaveBeenCalledWith("1", {
+      title: "Updated Movie",
+      description: "Original Description",
+      duration: 120,
+      genre: ["Action"], 
+      rating: 9,
+      posterUrl: "poster.jpg",
+      bannerUrl: "banner.jpg",
+      trailerUrl: "trailer.mp4",
+      status: "soon",
+    });
+
+    expect(mockNavigate).toHaveBeenCalledWith("/admin/movies");
   });
 });

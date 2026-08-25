@@ -1,6 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import App from "./App";
 
 jest.mock("axios", () => {
   const mockAxiosInstance = {
@@ -31,8 +32,6 @@ jest.mock("./services/movieService", () => ({
   getMovies: jest.fn(() => Promise.resolve([])),
   getMovieById: jest.fn(() => Promise.resolve({})),
 }));
-
-import App from "./App";
 
 test("renders app header link", () => {
   render(<App />);

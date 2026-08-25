@@ -141,10 +141,12 @@ const MovieManager = () => {
                 <td className="moviemanager-actions">
                   <MdEdit
                     className="moviemanager-edit"
+                    title="Edit Movie"
                     onClick={() => handleEdit(movie._id)}
                   />
                   <MdDelete
                     className="moviemanager-delete"
+                    title="Delete Movie"
                     onClick={() => handleDelete(movie._id)}
                   />
                 </td>

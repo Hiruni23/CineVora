@@ -81,19 +81,20 @@ describe("AddMovie Component", () => {
 
     await waitFor(() => {
       expect(createMovie).toHaveBeenCalledTimes(1);
-      expect(createMovie).toHaveBeenCalledWith({
-        title: "Test Movie",
-        description: "Test Description",
-        duration: 120,
-        genre: ["Action"], 
-        rating: 8.5,
-        posterUrl: "poster.jpg",
-        bannerUrl: "banner.jpg",
-        trailerUrl: "trailer.mp4",
-        status: "now",
-      });
-
-      expect(mockNavigate).toHaveBeenCalledWith("/admin/movies");
     });
+
+    expect(createMovie).toHaveBeenCalledWith({
+      title: "Test Movie",
+      description: "Test Description",
+      duration: 120,
+      genre: ["Action"], 
+      rating: 8.5,
+      posterUrl: "poster.jpg",
+      bannerUrl: "banner.jpg",
+      trailerUrl: "trailer.mp4",
+      status: "now",
+    });
+
+    expect(mockNavigate).toHaveBeenCalledWith("/admin/movies");
   });
 });
