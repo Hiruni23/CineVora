@@ -1,0 +1,590 @@
+/*
+ * =====================================================
+ *  CINEVORA ADMIN THEME — Shared Variable Overrides
+ *  Import this in each admin CSS to fix legacy vars
+ * =====================================================
+ */
+
+/* Page base */
+.moviemanager-page,
+.showtimemanager-page,
+.hallmanager-page,
+.dashboard-container,
+.users-container,
+.admin-bookings-container {
+  background: var(--bg-primary, #07111F) !important;
+  color: var(--text-primary, #F5F5F5);
+  padding: 36px 5%;
+  min-height: calc(100vh - 80px);
+  box-sizing: border-box;
+}
+
+/* ── Page Headers ── */
+.moviemanager-header,
+.showtimemanager-header,
+.hallmanager-header,
+.bookings-header,
+.users-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  padding: 0;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Page Titles */
+.moviemanager-title,
+.showtimemanager-title,
+.hallmanager-title,
+.page-title,
+.bookings-header h1,
+.users-header h1 {
+  font-family: var(--font-display, 'Cinzel', serif) !important;
+  font-size: 1.8rem !important;
+  font-weight: 800 !important;
+  color: var(--text-primary, #F5F5F5) !important;
+  margin: 0 !important;
+  background: none !important;
+  -webkit-text-fill-color: var(--text-primary, #F5F5F5) !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* ── Action Buttons (Add, Refresh, etc.) ── */
+.moviemanager-add-btn,
+.showtimemanager-add-btn,
+.hallmanager-add-btn,
+.hallmanager-save-btn,
+.btn-refresh,
+.btn-export {
+  padding: 9px 20px !important;
+  border-radius: var(--radius-sm, 6px) !important;
+  font-weight: 700 !important;
+  font-size: 0.86rem !important;
+  cursor: pointer !important;
+  transition: all 0.18s ease !important;
+  border: none !important;
+  font-family: var(--font-body, sans-serif) !important;
+}
+
+.moviemanager-add-btn,
+.showtimemanager-add-btn,
+.hallmanager-add-btn,
+.hallmanager-save-btn,
+.btn-export {
+  background: var(--accent-red, #C8102E) !important;
+  color: #fff !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+.moviemanager-add-btn:hover,
+.showtimemanager-add-btn:hover,
+.hallmanager-add-btn:hover,
+.hallmanager-save-btn:hover,
+.btn-export:hover {
+  background: #a60d26 !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.btn-refresh {
+  background: transparent !important;
+  color: var(--text-secondary, #A6A6A6) !important;
+  border: 1px solid var(--border-strong, #31587E) !important;
+  backdrop-filter: none !important;
+}
+.btn-refresh:hover {
+  color: var(--accent-gold, #D4AF37) !important;
+  border-color: var(--accent-gold, #D4AF37) !important;
+  transform: none !important;
+}
+
+/* ── Filters / Controls Bar ── */
+.moviemanager-filters,
+.showtimemanager-filters,
+.hallmanager-controls,
+.filters-section {
+  display: flex !important;
+  gap: 12px !important;
+  margin-bottom: 22px !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* Filter inputs/selects */
+.moviemanager-filters select,
+.showtimemanager-filters select,
+.showtimemanager-filters input,
+.hallmanager-input,
+.filter-select,
+.filter-date {
+  background: var(--bg-secondary, #0D1B2D) !important;
+  color: var(--text-primary, #F5F5F5) !important;
+  border: 1px solid var(--border-strong, #31587E) !important;
+  padding: 9px 14px !important;
+  border-radius: var(--radius-sm, 6px) !important;
+  font-size: 0.88rem !important;
+  font-family: var(--font-body, inherit) !important;
+  cursor: pointer !important;
+  transition: border-color 0.15s ease !important;
+  box-shadow: none !important;
+  min-width: 180px !important;
+  outline: none !important;
+}
+.moviemanager-filters select:focus,
+.showtimemanager-filters select:focus,
+.showtimemanager-filters input:focus,
+.hallmanager-input:focus,
+.filter-select:focus,
+.filter-date:focus {
+  border-color: var(--accent-gold, #D4AF37) !important;
+  box-shadow: none !important;
+}
+.moviemanager-filters option,
+.showtimemanager-filters option,
+.filter-select option {
+  background: var(--bg-secondary, #0D1B2D) !important;
+}
+
+/* ── Table Wrapper ── */
+.moviemanager-table-wrapper,
+.showtimemanager-table-wrapper,
+.hallmanager-table-wrapper,
+.bookings-table-container,
+.table-container {
+  background: var(--bg-secondary, #0D1B2D) !important;
+  border: 1px solid var(--border, #203A56) !important;
+  border-radius: var(--radius-md, 8px) !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+  overflow-x: auto;
+}
+
+/* ── Table ── */
+.moviemanager-table,
+.showtimemanager-table,
+.hallmanager-table,
+.bookings-table,
+.dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.moviemanager-table th,
+.showtimemanager-table th,
+.hallmanager-table th,
+.bookings-table th,
+.dashboard-table th {
+  background: rgba(7, 17, 31, 0.6) !important;
+  color: var(--accent-gold, #D4AF37) !important;
+  padding: 12px 16px !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  text-align: left !important;
+  border-bottom: 1px solid var(--border, #203A56) !important;
+}
+
+.moviemanager-table td,
+.showtimemanager-table td,
+.hallmanager-table td,
+.bookings-table td,
+.dashboard-table td {
+  padding: 13px 16px !important;
+  font-size: 0.9rem !important;
+  color: var(--text-primary, #F5F5F5) !important;
+  border-bottom: 1px solid var(--border, #203A56) !important;
+  vertical-align: middle !important;
+}
+
+.moviemanager-table tbody tr:hover,
+.showtimemanager-table tbody tr:hover,
+.hallmanager-table tbody tr:hover,
+.bookings-table tbody tr:hover,
+.dashboard-table tbody tr:hover {
+  background: rgba(212, 175, 55, 0.04) !important;
+}
+
+/* ── Table Description Cell ── */
+.moviemanager-description-cell {
+  max-width: 240px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  color: var(--text-muted, #6B6B6B) !important;
+}
+
+/* Table links */
+.moviemanager-table a,
+.showtimemanager-table a {
+  color: var(--accent-gold, #D4AF37) !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+}
+.moviemanager-table a:hover,
+.showtimemanager-table a:hover {
+  text-decoration: underline !important;
+}
+
+/* ── Action Buttons in Table ── */
+.moviemanager-edit,
+.showtimemanager-edit,
+.hallmanager-edit {
+  color: var(--accent-gold, #D4AF37) !important;
+  font-size: 18px !important;
+  background: none !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: opacity 0.15s !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+.moviemanager-edit:hover,
+.showtimemanager-edit:hover,
+.hallmanager-edit:hover {
+  opacity: 0.75 !important;
+  transform: none !important;
+  color: #fff !important;
+}
+
+.moviemanager-delete,
+.showtimemanager-delete,
+.hallmanager-delete {
+  color: #EF4444 !important;
+  font-size: 18px !important;
+  background: none !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: opacity 0.15s !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+.moviemanager-delete:hover,
+.showtimemanager-delete:hover,
+.hallmanager-delete:hover {
+  opacity: 0.75 !important;
+  transform: none !important;
+}
+
+.moviemanager-actions,
+.showtimemanager-actions,
+.hallmanager-actions,
+.actions-cell {
+  display: flex !important;
+  gap: 12px !important;
+  align-items: center !important;
+}
+
+/* ── Stat Cards ── */
+.stats-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+  gap: 16px !important;
+  margin-bottom: 28px !important;
+}
+
+.stat-card {
+  background: var(--bg-secondary, #0D1B2D) !important;
+  backdrop-filter: none !important;
+  padding: 20px !important;
+  border-radius: var(--radius-md, 8px) !important;
+  border: 1px solid var(--border, #203A56) !important;
+  box-shadow: none !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  transition: border-color 0.18s ease !important;
+}
+.stat-card:hover {
+  border-color: var(--accent-gold, #D4AF37) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.stat-icon {
+  border-radius: var(--radius-sm, 6px) !important;
+  font-size: 1.6rem !important;
+}
+
+/* ── Users Header Count Badge ── */
+.users-count {
+  background: rgba(212, 175, 55, 0.1) !important;
+  color: var(--accent-gold, #D4AF37) !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  padding: 6px 14px !important;
+  border-radius: var(--radius-sm, 6px) !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+}
+
+/* ── Users Grid ── */
+.users-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+  gap: 16px !important;
+}
+
+.user-card {
+  background: var(--bg-secondary, #0D1B2D) !important;
+  border: 1px solid var(--border, #203A56) !important;
+  border-radius: var(--radius-md, 8px) !important;
+  padding: 22px 20px !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+  transition: border-color 0.18s ease !important;
+}
+.user-card:hover {
+  border-color: var(--accent-gold, #D4AF37) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.user-avatar {
+  background: var(--accent-red, #C8102E) !important;
+  box-shadow: none !important;
+  width: 56px !important;
+  height: 56px !important;
+  font-size: 24px !important;
+}
+
+.user-name {
+  color: var(--text-primary, #F5F5F5) !important;
+  font-size: 1.05rem !important;
+}
+
+.user-detail {
+  background: rgba(7, 17, 31, 0.5) !important;
+  border: 1px solid var(--border, #203A56) !important;
+  color: var(--text-secondary, #A6A6A6) !important;
+  font-size: 0.84rem !important;
+}
+
+.detail-icon {
+  color: var(--accent-gold, #D4AF37) !important;
+}
+
+.user-role.admin {
+  background: rgba(200, 16, 46, 0.12) !important;
+  color: var(--accent-red, #C8102E) !important;
+  border: 1px solid rgba(200, 16, 46, 0.3) !important;
+}
+.user-role.customer {
+  background: rgba(212, 175, 55, 0.1) !important;
+  color: var(--accent-gold, #D4AF37) !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+}
+
+/* ── Hall Manager Controls Panel ── */
+.hallmanager-controls {
+  background: var(--bg-secondary, #0D1B2D) !important;
+  border: 1px solid var(--border, #203A56) !important;
+  border-radius: var(--radius-md, 8px) !important;
+  padding: 20px !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  margin-bottom: 22px !important;
+}
+
+.hallmanager-controls h3 {
+  color: var(--text-primary, #F5F5F5) !important;
+}
+
+/* ── Hall Seat Grid ── */
+.seat-grid-container {
+  background: rgba(7, 17, 31, 0.5) !important;
+  border: 1px solid var(--border, #203A56) !important;
+}
+
+.grid-cell.seat {
+  background: rgba(200, 16, 46, 0.12) !important;
+  border-color: rgba(200, 16, 46, 0.35) !important;
+  color: var(--accent-gold, #D4AF37) !important;
+}
+.grid-cell.seat:hover {
+  background: rgba(212, 175, 55, 0.15) !important;
+  border-color: var(--accent-gold, #D4AF37) !important;
+  box-shadow: none !important;
+}
+.grid-cell {
+  border: 1px solid var(--border, #203A56) !important;
+}
+
+/* ── Capacity Badge ── */
+.capacity-badge {
+  background: rgba(212, 175, 55, 0.1) !important;
+  color: var(--accent-gold, #D4AF37) !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+}
+
+/* ── Hall Form ── */
+.hall-form-header {
+  border-bottom: 1px solid var(--border, #203A56) !important;
+}
+
+/* ── Modals ── */
+.modal-overlay {
+  background: rgba(0, 0, 0, 0.7) !important;
+  backdrop-filter: blur(6px) !important;
+}
+
+.modal-content {
+  background: var(--bg-secondary, #0D1B2D) !important;
+  border: 1px solid var(--border-strong, #31587E) !important;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.6) !important;
+}
+
+.modal-header {
+  background: transparent !important;
+  border-bottom: 1px solid var(--border, #203A56) !important;
+}
+
+.modal-header h2 {
+  color: var(--text-primary, #F5F5F5) !important;
+  font-family: var(--font-display, 'Cinzel', serif) !important;
+  font-size: 1.2rem !important;
+}
+
+.modal-close,
+.close-btn {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid var(--border, #203A56) !important;
+  color: var(--text-secondary, #A6A6A6) !important;
+}
+.modal-close:hover,
+.close-btn:hover {
+  background: rgba(231, 76, 60, 0.2) !important;
+  color: #ff8888 !important;
+}
+
+/* ── Status Badges ── */
+.status-badge.confirmed {
+  background: rgba(46, 204, 113, 0.12) !important;
+  color: #4ade80 !important;
+  border: 1px solid rgba(46, 204, 113, 0.3) !important;
+}
+.status-badge.cancelled {
+  background: rgba(231, 76, 60, 0.12) !important;
+  color: #f87171 !important;
+  border: 1px solid rgba(231, 76, 60, 0.3) !important;
+}
+.status-success {
+  background: rgba(46, 204, 113, 0.12) !important;
+  color: #4ade80 !important;
+  border: 1px solid rgba(46, 204, 113, 0.3) !important;
+}
+.status-pending {
+  background: rgba(251, 191, 36, 0.12) !important;
+  color: #fbbf24 !important;
+  border: 1px solid rgba(251, 191, 36, 0.3) !important;
+}
+
+/* ── Search Box ── */
+.search-box {
+  background: var(--bg-secondary, #0D1B2D) !important;
+  border: 1px solid var(--border-strong, #31587E) !important;
+  box-shadow: none !important;
+}
+.search-box:focus-within {
+  border-color: var(--accent-gold, #D4AF37) !important;
+  box-shadow: none !important;
+}
+.search-box input {
+  color: var(--text-primary, #F5F5F5) !important;
+  background: transparent !important;
+}
+
+/* ── Clear Filters ── */
+.btn-clear-filters {
+  background: transparent !important;
+  border: 1px solid rgba(231, 76, 60, 0.4) !important;
+  color: #f87171 !important;
+}
+.btn-clear-filters:hover {
+  background: rgba(231, 76, 60, 0.15) !important;
+  color: #f87171 !important;
+}
+
+/* ── View / Cancel booking buttons ── */
+.btn-view {
+  background: rgba(212, 175, 55, 0.1) !important;
+  color: var(--accent-gold, #D4AF37) !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+}
+.btn-view:hover {
+  background: rgba(212, 175, 55, 0.2) !important;
+}
+.btn-cancel {
+  background: rgba(231, 76, 60, 0.1) !important;
+  color: #f87171 !important;
+  border: 1px solid rgba(231, 76, 60, 0.3) !important;
+}
+.btn-cancel:hover {
+  background: rgba(231, 76, 60, 0.2) !important;
+}
+.btn-cancel-booking {
+  background: rgba(231, 76, 60, 0.12) !important;
+  border: 1px solid rgba(231, 76, 60, 0.4) !important;
+  color: #f87171 !important;
+  box-shadow: none !important;
+}
+.btn-cancel-booking:hover {
+  background: rgba(231, 76, 60, 0.25) !important;
+  box-shadow: none !important;
+}
+
+/* ── Booking Ref badge ── */
+.booking-ref,
+.booking-ref-large,
+.highlight-ref {
+  background: rgba(212, 175, 55, 0.1) !important;
+  color: var(--accent-gold, #D4AF37) !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+}
+
+/* ── Loading & Empty States ── */
+.moviemanager-page__loading,
+.showtimemanager-page__loading,
+.loading-message,
+.error-message,
+.no-users,
+.no-data,
+.loading-spinner {
+  color: var(--text-muted, #6B6B6B) !important;
+  background: none !important;
+  border: none !important;
+  backdrop-filter: none !important;
+}
+
+/* ── Admin Payments action btn ── */
+.action-btn {
+  background: rgba(212, 175, 55, 0.1) !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  color: var(--accent-gold, #D4AF37) !important;
+  box-shadow: none !important;
+}
+.action-btn:hover {
+  background: rgba(212, 175, 55, 0.2) !important;
+  color: var(--accent-gold, #D4AF37) !important;
+  box-shadow: none !important;
+}
+
+/* ── Input group labels ── */
+.input-group label {
+  color: var(--text-muted, #6B6B6B) !important;
+}
+
+/* ── Hall ID cell ── */
+.hallmanager-id {
+  color: var(--text-muted, #6B6B6B) !important;
+  font-size: 0.82rem !important;
+}
