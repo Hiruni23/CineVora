@@ -1,346 +1,466 @@
-/* --- PAGE GENERAL --- */
+/* =====================================================
+   SHOWTIME SELECTION — CineVora Luxury Cinema Theme
+   ===================================================== */
+
 .selection-page {
-  background-color: var(--bg-primary); 
+  background: var(--bg-primary, #07111F);
   min-height: 100vh;
-  color: var(--text-primary);
-  padding-bottom: 60px;
+  color: var(--text-primary, #F5F5F5);
+  padding-bottom: 80px;
   position: relative;
+  overflow-x: hidden;
+}
+
+/* ── Loading & Error ── */
+.selection-loading-wrap,
+.selection-error-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 18px;
+  color: var(--text-secondary, #A6A6A6);
+}
+.selection-spinner {
+  width: 44px;
+  height: 44px;
+  border: 3px solid var(--border-strong, #31587E);
+  border-top-color: var(--accent-gold, #D4AF37);
+  border-radius: 50%;
+  animation: sel-spin 0.8s linear infinite;
+}
+@keyframes sel-spin { to { transform: rotate(360deg); } }
+
+/* ── Top Bar Navigation (Cleanly placed, no overlap) ── */
+.selection-top-bar {
+  background: rgba(13, 27, 45, 0.95);
+  border-bottom: 1px solid var(--border, #203A56);
+  padding: 14px 6%;
+  position: relative;
+  z-index: 20;
+}
+
+.selection-top-bar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
 }
 
 .selection-back-btn {
-  position: absolute;
-  top: 24px;
-  left: 6%;
-  z-index: 5;
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  padding: 10px 15px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: var(--radius-full);
-  background: rgba(7, 17, 31, 0.72);
-  color: var(--text-primary);
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid var(--border-strong, #31587E);
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary, #F5F5F5);
+  font-size: 0.82rem;
+  font-weight: 700;
   cursor: pointer;
   backdrop-filter: blur(12px);
   transition: all 0.2s ease;
+  font-family: var(--font-body, sans-serif);
 }
-
 .selection-back-btn:hover {
-  color: var(--accent-gold);
-  border-color: var(--accent-gold);
+  background: rgba(212, 175, 55, 0.12);
+  border-color: var(--accent-gold, #D4AF37);
+  color: var(--accent-gold, #D4AF37);
   transform: translateX(-2px);
 }
 
-/* --- HEADER BANNER --- */
-.selection-header-banner {
+/* ── Movie Hero Banner ── */
+.selection-hero-banner {
   background-size: cover;
-  background-position: center;
-  padding: 36px 6%;
-  border-bottom: 1px solid var(--border);
+  background-position: center 30%;
+  padding: 40px 6%;
+  border-bottom: 1px solid var(--border, #203A56);
   position: relative;
-  overflow: hidden;
 }
 
-.selection-header-banner::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(13, 13, 13, 0.7) 0%, var(--bg-primary) 100%);
-}
-
-.header-container {
-  display: flex;
-  align-items: flex-end; 
-  gap: 28px;
+.selection-hero-container {
   max-width: 1200px;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 32px;
   position: relative;
   z-index: 2;
 }
 
-.header-poster-wrapper { flex-shrink: 0; }
+.selection-poster-box {
+  flex-shrink: 0;
+}
 
-.header-poster {
-  width: 130px;
-  height: 190px;
+.selection-poster-img {
+  width: 125px;
+  height: 185px;
   object-fit: cover;
-  border-radius: var(--radius-md); 
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(200, 16, 46, 0.2);
-  border: 1px solid var(--border);
-}
-
-.header-content h1 {
-  margin: 0 0 12px 0;
-  color: var(--text-primary);
-  font-size: 2.4rem;
-  font-weight: 800;
-  letter-spacing: 0.03em;
-  line-height: 1.1;
-  font-family: var(--font-display);
-  background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-red) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.selection-eyebrow {
+  border-radius: var(--radius-md, 8px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), 0 0 20px rgba(200, 16, 46, 0.25);
+  border: 1.5px solid var(--border-strong, #31587E);
   display: block;
-  margin-bottom: 8px;
-  color: var(--accent-gold);
+}
+
+.selection-poster-placeholder {
+  width: 125px;
+  height: 185px;
+  background: var(--bg-secondary, #0D1B2D);
+  border-radius: var(--radius-md, 8px);
+  border: 1px solid var(--border, #203A56);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted, #6B6B6B);
+}
+
+.selection-hero-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.selection-kicker {
+  color: var(--accent-gold, #D4AF37);
   font-size: 0.72rem;
   font-weight: 800;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
-.meta-tags { display: flex; gap: 10px; margin-bottom: 12px; }
-
-.tag {
-  background-color: rgba(255, 255, 255, 0.08);
-  padding: 4px 12px;
-  font-size: 0.85rem;
-  border-radius: var(--radius-sm);
-  font-weight: 600;
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--border);
-}
-.tag.rating {
-  background-color: rgba(200, 16, 46, 0.15);
-  color: var(--accent-red);
-  border-color: rgba(200, 16, 46, 0.4);
-}
-.genres { color: var(--text-secondary); font-size: 1rem; margin: 0; font-weight: 500; }
-
-/* --- DATE BAR --- */
-.date-bar-container {
-  background-color: var(--bg-secondary);
-  border-bottom: 1px solid var(--border);
-  box-shadow: var(--shadow-card); 
-  position: relative;
-  z-index: 10;
-}
-
-.date-bar-heading {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 22px 6% 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.date-bar-heading h2 {
-  margin: 0;
-  color: var(--text-primary);
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-}
-
-.date-bar-heading > svg {
-  color: var(--accent-gold);
-  font-size: 1.5rem;
-}
-
-.date-bar {
-  display: flex;
-  gap: 16px;
-  padding: 16px 6%; 
-  max-width: 1200px;
-  margin: 0 auto;
-  overflow-x: auto;
-}
-
-.date-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  min-width: 76px; 
-  padding: 12px 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  color: var(--text-secondary);
-  transition: all 0.25s ease;
-}
-
-.date-card:hover {
-  background-color: rgba(255, 255, 255, 0.08);
-  border-color: rgba(212, 175, 55, 0.3);
-  color: var(--text-primary);
-}
-
-.date-card.active {
-  background: var(--accent-red);
-  color: #fff;
-  border-color: transparent;
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(200, 16, 46, 0.4);
-}
-
-.date-month { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700; }
-.date-num { font-size: 1.6rem; font-weight: 800; margin: 4px 0; line-height: 1;}
-.date-day { font-size: 0.82rem; opacity: 0.85;}
-
-/* --- MAIN SHOWTIME CONTAINER --- */
-.times-container {
-  padding: 40px 6%; 
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.scope-hall-row {
-  background-color: rgba(26, 26, 26, 0.92);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 30px;
-  margin-bottom: 28px;
-  display: flex;
-  align-items: center; 
-  gap: 36px;
-  box-shadow: var(--shadow-card);
-  backdrop-filter: blur(16px);
-  transition: border-color 0.25s ease, transform 0.25s ease;
-}
-
-.scope-hall-row:hover {
-  border-color: rgba(212, 175, 55, 0.35);
-  transform: translateY(-2px);
-}
-
-.hall-left-col {
-  min-width: 240px; 
-  border-right: 1px solid var(--border); 
-  padding-right: 24px;
-}
-
-.scope-hall-name {
-  color: var(--accent-gold); 
-  font-size: 1.8rem;
+.selection-movie-title {
+  margin: 0 0 6px 0;
+  font-family: var(--font-display, 'Cinzel', serif);
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
   font-weight: 800;
-  text-transform: uppercase;
-  margin: 0;
-  line-height: 1.1;
+  color: var(--text-primary, #F5F5F5);
   letter-spacing: 0.03em;
-  font-family: var(--font-display);
+  line-height: 1.15;
 }
 
-.scope-subtitle {
-  display: block;
-  margin-top: 8px;
-  color: var(--text-secondary);
-  font-size: 0.82rem;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  font-weight: 600;
-}
-
-.hall-right-col {
-  flex-grow: 1;
-}
-
-.time-grid {
+.selection-tags-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
-}
-
-.scope-time-btn {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 12px 24px;
-  min-width: 110px;
-  color: var(--text-primary);
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
+  gap: 8px;
   align-items: center;
-  transition: all 0.25s ease;
+  margin-bottom: 4px;
 }
 
-.scope-time-btn:hover {
-  border-color: var(--accent-gold); 
-  background-color: rgba(212, 175, 55, 0.08); 
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
-  transform: translateY(-3px);
-}
-
-.scope-time-btn.locked,
-.scope-time-btn:disabled {
-  background: rgba(231, 76, 60, 0.12) !important;
-  border-color: rgba(231, 76, 60, 0.25) !important;
-  color: var(--text-muted) !important;
-  opacity: 0.6;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-.scope-time-btn.locked .time-text,
-.scope-time-btn:disabled .time-text {
-  color: var(--text-muted) !important;
-}
-
-.scope-time-btn.locked .price-text,
-.scope-time-btn:disabled .price-text {
-  color: var(--text-muted) !important;
-}
-
-.scope-time-btn.locked:hover,
-.scope-time-btn:disabled:hover {
-  transform: none !important;
-}
-
-.scope-time-btn .time-text {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.scope-time-btn .price-text {
+.selection-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-strong, #31587E);
+  border-radius: 4px;
+  padding: 4px 10px;
   font-size: 0.78rem;
-  color: var(--text-secondary);
-  margin-top: 4px;
+  font-weight: 700;
+  color: var(--text-primary, #F5F5F5);
+  letter-spacing: 0.04em;
+}
+
+.selection-tag--rating {
+  background: rgba(200, 16, 46, 0.18);
+  border-color: rgba(200, 16, 46, 0.45);
+  color: #ff6b8a;
+}
+.selection-tag--rating svg {
+  color: var(--accent-gold, #D4AF37);
+}
+
+.selection-genres {
+  color: var(--text-secondary, #A6A6A6);
+  font-size: 0.9rem;
+  margin: 0;
   font-weight: 500;
 }
 
-.no-showtimes-msg {
-  text-align: center;
-  color: var(--text-secondary);
-  padding: 60px 20px;
-  background: rgba(26, 26, 26, 0.92);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  backdrop-filter: blur(10px);
+/* ── Date Picker Section ── */
+.date-picker-section {
+  background: linear-gradient(180deg, rgba(13, 27, 45, 0.95) 0%, rgba(7, 17, 31, 0.95) 100%);
+  border-bottom: 1px solid var(--border, #203A56);
+  padding: 28px 6% 22px;
 }
-.no-showtimes-msg h3 { color: var(--text-primary); margin-bottom: 10px; font-size: 1.5rem; font-family: var(--font-display); }
 
-@media (max-width: 768px) {
-  .selection-back-btn {
-    left: 16px;
-    top: 16px;
-  }
+.date-picker-header {
+  max-width: 1200px;
+  margin: 0 auto 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
 
-  .date-bar-heading {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
+.date-picker-kicker {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--accent-gold, #D4AF37);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
 
-  .header-container { flex-direction: row; align-items: center; text-align: left; }
-  .header-poster { width: 90px; height: 135px; }
-  .header-content h1 { font-size: 1.6rem; }
-  
-  .scope-hall-row {
+.date-picker-title {
+  margin: 0;
+  font-family: var(--font-display, 'Cinzel', serif);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-primary, #F5F5F5);
+  letter-spacing: 0.02em;
+}
+
+.date-cards-scroll {
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong, #31587E) transparent;
+  padding-bottom: 6px;
+}
+
+.date-cards-track {
+  display: flex;
+  gap: 12px;
+  min-width: max-content;
+}
+
+.date-no-dates {
+  color: var(--text-muted, #6B6B6B);
+  font-size: 0.88rem;
+  padding: 10px 0;
+}
+
+.date-pill-btn {
+  background: rgba(18, 36, 58, 0.75);
+  border: 1px solid var(--border, #203A56);
+  border-radius: var(--radius-md, 8px);
+  min-width: 76px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  color: var(--text-secondary, #A6A6A6);
+  transition: all 0.2s ease;
+  font-family: var(--font-body, sans-serif);
+}
+
+.date-pill-btn:hover {
+  background: rgba(24, 49, 77, 0.9);
+  border-color: rgba(212, 175, 55, 0.4);
+  color: var(--text-primary, #F5F5F5);
+  transform: translateY(-2px);
+}
+
+.date-pill-btn--active {
+  background: linear-gradient(135deg, var(--accent-red, #C8102E) 0%, #8f1027 100%);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(200, 16, 46, 0.45);
+}
+.date-pill-btn--active:hover {
+  background: linear-gradient(135deg, var(--accent-red, #C8102E) 0%, #8f1027 100%);
+  color: #fff;
+}
+
+.date-pill-month {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  opacity: 0.85;
+}
+
+.date-pill-num {
+  font-family: var(--font-display, 'Cinzel', serif);
+  font-size: 1.45rem;
+  font-weight: 800;
+  margin: 2px 0;
+  line-height: 1;
+}
+
+.date-pill-day {
+  font-size: 0.76rem;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+/* ── Main Auditoriums / Showtimes Section ── */
+.showtimes-section {
+  padding: 40px 6%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.showtimes-empty-box {
+  text-align: center;
+  padding: 60px 24px;
+  background: rgba(13, 27, 45, 0.85);
+  border: 1px dashed var(--border-strong, #31587E);
+  border-radius: var(--radius-lg, 14px);
+  color: var(--text-muted, #6B6B6B);
+}
+.showtimes-empty-box h3 {
+  font-family: var(--font-display, 'Cinzel', serif);
+  color: var(--text-primary, #F5F5F5);
+  font-size: 1.3rem;
+  margin: 0 0 8px 0;
+}
+
+.hall-showtimes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hall-experience-card {
+  background: linear-gradient(135deg, rgba(18, 36, 58, 0.85) 0%, rgba(13, 27, 45, 0.95) 100%);
+  border: 1px solid var(--border-strong, #31587E);
+  border-radius: var(--radius-lg, 14px);
+  padding: 26px 30px;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(14px);
+  transition: all 0.25s ease;
+}
+
+.hall-experience-card:hover {
+  border-color: rgba(212, 175, 55, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+}
+
+.hall-branding-col {
+  min-width: 240px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-right: 1px solid var(--border, #203A56);
+  padding-right: 28px;
+}
+
+.hall-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: var(--accent-gold, #D4AF37);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.hall-name-text {
+  font-family: var(--font-display, 'Cinzel', serif);
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--accent-gold, #D4AF37);
+  margin: 0;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+}
+
+.hall-experience-sub {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--text-muted, #6B6B6B);
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.hall-times-col {
+  flex: 1;
+}
+
+.showtime-buttons-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.showtime-slot-btn {
+  background: rgba(7, 17, 31, 0.6);
+  border: 1px solid var(--border-strong, #31587E);
+  border-radius: var(--radius-sm, 6px);
+  padding: 10px 18px;
+  min-width: 105px;
+  color: var(--text-primary, #F5F5F5);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.2s ease;
+  font-family: var(--font-body, sans-serif);
+}
+
+.showtime-slot-btn:hover {
+  border-color: var(--accent-gold, #D4AF37);
+  background: rgba(212, 175, 55, 0.1);
+  box-shadow: 0 0 16px rgba(212, 175, 55, 0.25);
+  transform: translateY(-2px);
+}
+
+.slot-time-text {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-primary, #F5F5F5);
+}
+
+.slot-price-text {
+  font-size: 0.75rem;
+  color: var(--accent-gold, #D4AF37);
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.showtime-slot-btn--past,
+.showtime-slot-btn:disabled {
+  background: rgba(255, 255, 255, 0.02) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  opacity: 0.4 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+.showtime-slot-btn--past .slot-time-text,
+.showtime-slot-btn--past .slot-price-text {
+  color: var(--text-muted, #6B6B6B) !important;
+}
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+  .hall-experience-card {
     flex-direction: column;
     align-items: flex-start;
-    gap: 20px;
+    gap: 18px;
+    padding: 20px;
   }
-  .hall-left-col {
+  .hall-branding-col {
     border-right: none;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 16px;
-    padding-right: 0;
+    border-bottom: 1px solid var(--border, #203A56);
+    padding-bottom: 14px;
     width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .selection-hero-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+  .selection-poster-img {
+    width: 100px;
+    height: 150px;
+  }
+  .selection-movie-title {
+    font-size: 1.6rem;
   }
 }

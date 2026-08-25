@@ -5,9 +5,10 @@ import {
   MdCheckCircle, 
   MdCancel, 
   MdInfo, 
-  MdDelete, 
+  MdDeleteOutline, 
   MdDrafts, 
-  MdMarkEmailRead 
+  MdMarkEmailRead,
+  MdNotificationsActive
 } from "react-icons/md";
 import { toast } from "react-toastify";
 
@@ -26,9 +27,9 @@ const Notifications = () => {
   // 2. Get Icon based on type
   const getIcon = (type) => {
     switch (type) {
-      case "error": return <MdCancel className="notif-icon error" />;
-      case "success": return <MdCheckCircle className="notif-icon success" />;
-      default: return <MdInfo className="notif-icon info" />;
+      case "error": return <MdCancel className="notif-icon notif-icon--error" />;
+      case "success": return <MdCheckCircle className="notif-icon notif-icon--success" />;
+      default: return <MdInfo className="notif-icon notif-icon--info" />;
     }
   };
 
@@ -64,6 +65,24 @@ const Notifications = () => {
     }
   };
 
+  // Mark All as Read
+  const markAllAsRead = async () => {
+    const unread = notifications.filter(n => !n.isRead);
+    if (unread.length === 0) return;
+    try {
+      const token = localStorage.getItem("token");
+      await Promise.all(unread.map(n => 
+        axios.put(`${process.env.REACT_APP_API_URL}/notifications/${n._id}/read`, {}, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+      ));
+      setNotifications(prev => prev.map(n => ({ ...n, isRead: true })));
+      toast.success("All notifications marked as read");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   // Delete
   const deleteNotification = async (id) => {
     try {
@@ -72,9 +91,9 @@ const Notifications = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       setNotifications(prev => prev.filter(n => n._id !== id));
-      toast.success("Notification removed");
     } catch (err) {
       console.error(err);
+      toast.error("Failed to delete notification");
     }
   };
 
@@ -84,23 +103,49 @@ const Notifications = () => {
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
-  if (loading) return <div className="notif-loading">Loading updates...</div>;
+  const unreadCount = notifications.filter(n => !n.isRead).length;
+
+  if (loading) {
+    return (
+      <div className="notif-page">
+        <div className="notif-loading-wrap">
+          <div className="notif-spinner" />
+          <p>Loading updates…</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="notif-page">
       <div className="notif-container">
         <div className="notif-header">
-          <h1>Your Notifications</h1>
-          {/* Unread Badge */}
-          <span className="notif-count-badge">
-            {notifications.filter(n => !n.isRead).length} Unread
-          </span>
+          <div className="notif-title-group">
+            <h1 className="notif-title">
+              <MdNotificationsActive className="notif-title-icon" /> Notifications
+            </h1>
+            <span className="notif-subtitle">Updates on bookings, payments & showtimes</span>
+          </div>
+
+          <div className="notif-header-actions">
+            {unreadCount > 0 && (
+              <button className="notif-mark-all-btn" onClick={markAllAsRead}>
+                <MdMarkEmailRead /> Mark all as read
+              </button>
+            )}
+            <span className="notif-count-badge">
+              {unreadCount} Unread
+            </span>
+          </div>
         </div>
 
         {notifications.length === 0 ? (
           <div className="notif-empty">
-            <MdDrafts size={60} color="#444" />
-            <p>No new notifications.</p>
+            <div className="notif-empty-icon">
+              <MdDrafts size={48} />
+            </div>
+            <h3>No notifications yet</h3>
+            <p>We'll notify you when there are updates regarding your tickets, showtimes, and payments.</p>
           </div>
         ) : (
           <div className="notif-list">
@@ -109,7 +154,7 @@ const Notifications = () => {
               return (
                 <div 
                   key={notif._id} 
-                  className={`notif-card ${type} ${notif.isRead ? "read" : "unread"}`}
+                  className={`notif-card notif-card--${type} ${notif.isRead ? "notif-card--read" : "notif-card--unread"}`}
                 >
                   <div className="notif-left">
                     {getIcon(type)}
@@ -123,19 +168,21 @@ const Notifications = () => {
                   <div className="notif-actions">
                     {!notif.isRead && (
                       <button 
-                        className="action-btn read-btn" 
+                        className="notif-action-btn notif-action-btn--read" 
                         onClick={() => markAsRead(notif._id)}
                         title="Mark as Read"
+                        aria-label="Mark as Read"
                       >
-                        <MdMarkEmailRead size={22} />
+                        <MdMarkEmailRead size={18} />
                       </button>
                     )}
                     <button 
-                      className="action-btn delete-btn" 
+                      className="notif-action-btn notif-action-btn--delete" 
                       onClick={() => deleteNotification(notif._id)}
                       title="Delete"
+                      aria-label="Delete Notification"
                     >
-                      <MdDelete size={22} />
+                      <MdDeleteOutline size={18} />
                     </button>
                   </div>
                 </div>

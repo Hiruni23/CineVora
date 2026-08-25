@@ -13,12 +13,14 @@ export const CONCESSION_CATEGORIES = [
   {
     key: 'popcorn',
     title: 'Popcorn',
+    addLabel: 'another popcorn',
     defaultItemKey: 'butterPopcorn',
     options: ['butterPopcorn', 'caramelPopcorn', 'cheesePopcorn', 'saltedPopcorn']
   },
   {
     key: 'drink',
     title: 'Drinks',
+    addLabel: 'another drink',
     defaultItemKey: 'cola',
     options: ['cola', 'lemonade', 'water', 'orangeJuice']
   }
