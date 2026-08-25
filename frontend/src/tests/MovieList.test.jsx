@@ -2,8 +2,8 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
-import MovieList from "../pages/customers/MovieList";
 import { getMovies } from "../services/movieService";
+import MovieList from "../pages/customers/MovieList";
 
 jest.mock("../components/MovieCard", () => ({ movie }) => <div>{movie.title}</div>);
 
@@ -83,11 +83,9 @@ describe("MovieList Component", () => {
     const ratingSelect = screen.getByLabelText("Min Rating");
     fireEvent.change(ratingSelect, { target: { value: "9" } });
 
-    await waitFor(() => {
-      expect(screen.getByText("No movies found")).toBeInTheDocument();
-      expect(screen.queryByText("Action Movie")).not.toBeInTheDocument();
-      expect(screen.queryByText("Drama Movie")).not.toBeInTheDocument();
-      expect(screen.queryByText("Comedy Movie")).not.toBeInTheDocument();
-    });
+    expect(await screen.findByText("No movies found")).toBeInTheDocument();
+    expect(screen.queryByText("Action Movie")).not.toBeInTheDocument();
+    expect(screen.queryByText("Drama Movie")).not.toBeInTheDocument();
+    expect(screen.queryByText("Comedy Movie")).not.toBeInTheDocument();
   });
 });

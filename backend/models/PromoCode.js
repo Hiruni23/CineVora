@@ -42,7 +42,4 @@ const promoCodeSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Index for fast code lookup
-promoCodeSchema.index({ code: 1 });
-
 module.exports = mongoose.model('PromoCode', promoCodeSchema);

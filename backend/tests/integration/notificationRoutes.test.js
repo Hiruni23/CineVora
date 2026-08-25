@@ -59,10 +59,14 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  await User.deleteMany({});
-  await Notification.deleteMany({});
-  await mongoose.connection.close();
-  await mongoServer.stop();
+  if (mongoose.connection.readyState === 1) {
+    await User.deleteMany({});
+    await Notification.deleteMany({});
+    await mongoose.connection.close();
+  }
+  if (mongoServer) {
+    await mongoServer.stop();
+  }
 });
 
 describe("🔔 Notification Integration Tests", () => {

@@ -80,20 +80,21 @@ describe("AddMovie Component", () => {
     fireEvent.click(screen.getByRole("button", { name: /Add Movie/i }));
 
     await waitFor(() => {
-      expect(createMovie).toHaveBeenCalledWith({
-        title: "Test Movie",
-        description: "Test Description",
-        duration: 120,
-        genre: ["Action"], 
-        rating: 8.5,
-        posterUrl: "poster.jpg",
-        bannerUrl: "banner.jpg",
-        trailerUrl: "trailer.mp4",
-        status: "now",
-      });
-
+      expect(createMovie).toHaveBeenCalledTimes(1);
     });
-    expect(createMovie).toHaveBeenCalledTimes(1);
+
+    expect(createMovie).toHaveBeenCalledWith({
+      title: "Test Movie",
+      description: "Test Description",
+      duration: 120,
+      genre: ["Action"], 
+      rating: 8.5,
+      posterUrl: "poster.jpg",
+      bannerUrl: "banner.jpg",
+      trailerUrl: "trailer.mp4",
+      status: "now",
+    });
+
     expect(mockNavigate).toHaveBeenCalledWith("/admin/movies");
   });
 });

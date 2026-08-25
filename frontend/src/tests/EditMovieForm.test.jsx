@@ -52,7 +52,9 @@ describe("EditMovie Component", () => {
     expect(screen.getByDisplayValue("banner.jpg")).toBeInTheDocument();
     expect(screen.getByDisplayValue("trailer.mp4")).toBeInTheDocument();
     expect(screen.getByLabelText("Action")).toBeChecked();
-    expect(screen.getByLabelText(/Status/i)).toHaveValue("now");
+
+    const statusSelect = screen.getByLabelText(/Status/i);
+    expect(statusSelect.value).toBe("now");
   });
 
   test("submits form and calls updateMovie API", async () => {
@@ -77,20 +79,21 @@ describe("EditMovie Component", () => {
     fireEvent.click(screen.getByRole("button", { name: /Update Movie/i }));
 
     await waitFor(() => {
-      expect(updateMovie).toHaveBeenCalledWith("1", {
-        title: "Updated Movie",
-        description: "Original Description",
-        duration: 120,
-        genre: ["Action"], 
-        rating: 9,
-        posterUrl: "poster.jpg",
-        bannerUrl: "banner.jpg",
-        trailerUrl: "trailer.mp4",
-        status: "soon",
-      });
-
+      expect(updateMovie).toHaveBeenCalledTimes(1);
     });
-    expect(updateMovie).toHaveBeenCalledTimes(1);
+
+    expect(updateMovie).toHaveBeenCalledWith("1", {
+      title: "Updated Movie",
+      description: "Original Description",
+      duration: 120,
+      genre: ["Action"], 
+      rating: 9,
+      posterUrl: "poster.jpg",
+      bannerUrl: "banner.jpg",
+      trailerUrl: "trailer.mp4",
+      status: "soon",
+    });
+
     expect(mockNavigate).toHaveBeenCalledWith("/admin/movies");
   });
 });

@@ -15,6 +15,7 @@ jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useNavigate: () => mockNavigate,
 }));
+
 const mockMovies = [
   {
     _id: "1",
@@ -45,7 +46,7 @@ const mockMovies = [
 const originalConfirm = window.confirm;
 beforeEach(() => {
   jest.clearAllMocks();
-  window.confirm = jest.fn(() => true); 
+  window.confirm = jest.fn(() => true);
   movieService.getMovies.mockResolvedValue(mockMovies);
   movieService.deleteMovie.mockResolvedValue({});
 });
@@ -73,9 +74,8 @@ describe("MovieManager Component", () => {
       </MemoryRouter>
     );
 
-    await screen.findByText(/Add New Movie/i);
-
-    fireEvent.click(screen.getByText(/Add New Movie/i));
+    const addBtn = await screen.findByText(/Add New Movie/i);
+    fireEvent.click(addBtn);
     expect(mockNavigate).toHaveBeenCalledWith("/admin/movies/add");
   });
 
@@ -87,8 +87,8 @@ describe("MovieManager Component", () => {
     );
 
     await screen.findByText(/Movie 1/i);
-
-    fireEvent.click(screen.getByRole("button", { name: /Edit Movie 1/i }));
+    const editButtons = screen.getAllByTitle("Edit Movie");
+    fireEvent.click(editButtons[0]);
 
     expect(mockNavigate).toHaveBeenCalledWith("/admin/movies/edit/1");
   });
@@ -101,10 +101,14 @@ describe("MovieManager Component", () => {
     );
 
     await screen.findByText(/Movie 1/i);
+    const deleteButtons = screen.getAllByTitle("Delete Movie");
+    fireEvent.click(deleteButtons[0]);
 
-    fireEvent.click(screen.getByRole("button", { name: /Delete Movie 1/i }));
-
-    expect(movieService.deleteMovie).toHaveBeenCalledWith("1");
-    await waitFor(() => expect(screen.queryByText(/Movie 1/i)).not.toBeInTheDocument());
+    await waitFor(() => {
+      expect(movieService.deleteMovie).toHaveBeenCalledWith("1");
+    });
+    await waitFor(() => {
+      expect(screen.queryByText(/Movie 1/i)).not.toBeInTheDocument();
+    });
   });
 });

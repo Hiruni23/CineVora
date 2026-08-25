@@ -19,12 +19,18 @@ beforeAll(async () => {
 });
 
 afterEach(async () => {
-  await Showtime.deleteMany();
+  if (mongoose.connection.readyState === 1) {
+    await Showtime.deleteMany();
+  }
 });
 
 afterAll(async () => {
-  await mongoose.disconnect();
-  await mongoServer.stop();
+  if (mongoose.connection.readyState === 1) {
+    await mongoose.disconnect();
+  }
+  if (mongoServer) {
+    await mongoServer.stop();
+  }
 });
 
 describe('Showtime API Integration Tests', () => {

@@ -26,14 +26,20 @@ beforeAll(async () => {
 });
 
 afterEach(async () => {
-  await Seat.deleteMany();
-  await Hall.deleteMany();
-  await Showtime.deleteMany();
+  if (mongoose.connection.readyState === 1) {
+    await Seat.deleteMany();
+    await Hall.deleteMany();
+    await Showtime.deleteMany();
+  }
 });
 
 afterAll(async () => {
-  await mongoose.disconnect();
-  await mongoServer.stop();
+  if (mongoose.connection.readyState === 1) {
+    await mongoose.disconnect();
+  }
+  if (mongoServer) {
+    await mongoServer.stop();
+  }
 });
 
 describe('Smart Seat Generation API', () => {
