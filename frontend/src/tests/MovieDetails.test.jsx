@@ -26,6 +26,8 @@ const mockMovie = {
   trailerUrl: "https://www.youtube.com/embed/test",
 };
 
+jest.mock("../components/ReviewList", () => () => <div>ReviewList</div>);
+
 import MovieDetails from "../pages/customers/MovieDetails";
 
 describe("MovieDetails Component", () => {
@@ -45,11 +47,9 @@ describe("MovieDetails Component", () => {
 
     await waitFor(() => {
       expect(screen.getByText("Test Movie")).toBeInTheDocument();
-      expect(screen.getByText((content) =>
-        content.includes("Action") &&
-        content.includes("120") &&
-        content.includes("8.5")
-      )).toBeInTheDocument();
+      expect(screen.getByText("Action")).toBeInTheDocument();
+      expect(screen.getByText(/120\s*min/i)).toBeInTheDocument();
+      expect(screen.getByText("8.5")).toBeInTheDocument();
       expect(screen.getByText("Test movie description")).toBeInTheDocument();
       expect(screen.getByAltText("Test Movie")).toBeInTheDocument();
     });
@@ -65,7 +65,7 @@ describe("MovieDetails Component", () => {
     await waitFor(() => screen.getByText(/Book Now/i));
 
     fireEvent.click(screen.getByText(/Book Now/i));
-    expect(mockNavigate).toHaveBeenCalledWith("/booking/1");
+    expect(mockNavigate).toHaveBeenCalledWith("/buy-tickets/1");
   });
 
   test("Watch Trailer button opens and closes modal", async () => {

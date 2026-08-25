@@ -39,7 +39,8 @@
       "^swiper/react$": "<rootDir>/src/__mocks__/swiperMock.js",
       "^swiper/modules$": "<rootDir>/src/__mocks__/swiperMock.js",
       "^swiper/css$": "identity-obj-proxy",
-      "^swiper/css/navigation$": "identity-obj-proxy"
+      "^swiper/css/navigation$": "identity-obj-proxy",
+      "\\.css$": "identity-obj-proxy"
     },
     "transformIgnorePatterns": [
       "node_modules/(?!(axios)/)"
