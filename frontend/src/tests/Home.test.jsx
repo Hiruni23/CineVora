@@ -20,11 +20,12 @@ describe("Home Component", () => {
     getMovies.mockResolvedValue(mockMovies);
   });
 
-  const renderHome = () => render(
-    <MemoryRouter>
-      <Home />
-    </MemoryRouter>
-  );
+  const renderHome = () =>
+    render(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>
+    );
 
   test("renders Now Showing and Coming Soon sections", async () => {
     renderHome();

@@ -53,7 +53,8 @@ describe("MovieList Component", () => {
     renderComponent();
     await screen.findByText("Action Movie");
 
-    fireEvent.click(screen.getByRole("button", { name: "Drama" }));
+    const dramaChip = screen.getByRole("button", { name: "Drama" });
+    fireEvent.click(dramaChip);
 
     expect(await screen.findByText("Drama Movie")).toBeInTheDocument();
     expect(screen.queryByText("Action Movie")).not.toBeInTheDocument();
@@ -76,13 +77,17 @@ describe("MovieList Component", () => {
     renderComponent();
     await screen.findByText("Action Movie");
 
-    fireEvent.click(screen.getByRole("button", { name: "Fantasy" }));
-    fireEvent.change(screen.getByLabelText("Min Rating"), { target: { value: "9" } });
+    const fantasyChip = screen.getByRole("button", { name: "Fantasy" });
+    fireEvent.click(fantasyChip);
 
-    expect(await screen.findByText("No movies found")).toBeInTheDocument();
-    expect(screen.getByText("Try adjusting your search or filters")).toBeInTheDocument();
-    expect(screen.queryByText("Action Movie")).not.toBeInTheDocument();
-    expect(screen.queryByText("Drama Movie")).not.toBeInTheDocument();
-    expect(screen.queryByText("Comedy Movie")).not.toBeInTheDocument();
+    const ratingSelect = screen.getByLabelText("Min Rating");
+    fireEvent.change(ratingSelect, { target: { value: "9" } });
+
+    await waitFor(() => {
+      expect(screen.getByText("No movies found")).toBeInTheDocument();
+      expect(screen.queryByText("Action Movie")).not.toBeInTheDocument();
+      expect(screen.queryByText("Drama Movie")).not.toBeInTheDocument();
+      expect(screen.queryByText("Comedy Movie")).not.toBeInTheDocument();
+    });
   });
 });

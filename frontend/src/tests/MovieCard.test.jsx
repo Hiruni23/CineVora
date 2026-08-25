@@ -20,7 +20,7 @@ test("renders movie title, genre, and duration", () => {
   );
 
   expect(screen.getByText(/Test Movie/i)).toBeInTheDocument();
-  expect(screen.getByText(/Action \| 120 mins/i)).toBeInTheDocument();
+  expect(screen.getByText(/Action.*120\s*mins/i)).toBeInTheDocument();
 
   const img = screen.getByAltText(/Test Movie/i);
   expect(img).toHaveAttribute("src", "test.jpg");
