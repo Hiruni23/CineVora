@@ -1,16 +1,15 @@
 import React from "react";
-import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
+import MovieList from "../pages/customers/MovieList";
+import { getMovies } from "../services/movieService";
 
 jest.mock("../components/MovieCard", () => ({ movie }) => <div>{movie.title}</div>);
 
 jest.mock("../services/movieService", () => ({
   getMovies: jest.fn(),
 }));
-import { getMovies } from "../services/movieService";
-
-import MovieList from "../pages/customers/MovieList";
 
 const mockMovies = [
   { _id: "1", title: "Action Movie", status: "now", genre: "Action", duration: 120, rating: 7 },
@@ -39,61 +38,51 @@ describe("MovieList Component", () => {
 
   test("renders Now Showing and Coming Soon sections", async () => {
     renderComponent();
-    await waitFor(() => {
-      expect(screen.getByText("Now Showing")).toBeInTheDocument();
-      expect(screen.getByText("Coming Soon")).toBeInTheDocument();
-    });
+    expect(await screen.findByText("Now Showing")).toBeInTheDocument();
+    expect(screen.getByText("Coming Soon")).toBeInTheDocument();
   });
 
   test("renders movies under correct sections", async () => {
     renderComponent();
-    await waitFor(() => {
-      expect(screen.getByText("Action Movie")).toBeInTheDocument();
-      expect(screen.getByText("Drama Movie")).toBeInTheDocument();
-      expect(screen.getByText("Comedy Movie")).toBeInTheDocument();
-    });
+    expect(await screen.findByText("Action Movie")).toBeInTheDocument();
+    expect(screen.getByText("Drama Movie")).toBeInTheDocument();
+    expect(screen.getByText("Comedy Movie")).toBeInTheDocument();
   });
 
   test("filters movies by genre", async () => {
     renderComponent();
-    await waitFor(() => screen.getByText("Action Movie"));
+    await screen.findByText("Action Movie");
 
     fireEvent.click(screen.getByRole("button", { name: "Drama" }));
 
-    await waitFor(() => {
-      expect(screen.getByText("Drama Movie")).toBeInTheDocument();
-      expect(screen.queryByText("Action Movie")).not.toBeInTheDocument();
-      expect(screen.queryByText("Comedy Movie")).not.toBeInTheDocument();
-    });
+    expect(await screen.findByText("Drama Movie")).toBeInTheDocument();
+    expect(screen.queryByText("Action Movie")).not.toBeInTheDocument();
+    expect(screen.queryByText("Comedy Movie")).not.toBeInTheDocument();
   });
 
   test("filters movies by rating", async () => {
     renderComponent();
-    await waitFor(() => screen.getByText("Action Movie"));
+    await screen.findByText("Action Movie");
 
     const ratingSelect = screen.getByLabelText("Min Rating");
     fireEvent.change(ratingSelect, { target: { value: "8" } });
 
-    await waitFor(() => {
-      expect(screen.getByText("Drama Movie")).toBeInTheDocument();
-      expect(screen.queryByText("Action Movie")).not.toBeInTheDocument();
-      expect(screen.queryByText("Comedy Movie")).not.toBeInTheDocument();
-    });
+    expect(await screen.findByText("Drama Movie")).toBeInTheDocument();
+    expect(screen.queryByText("Action Movie")).not.toBeInTheDocument();
+    expect(screen.queryByText("Comedy Movie")).not.toBeInTheDocument();
   });
 
   test("shows 'No movies found' when filters exclude all movies", async () => {
     renderComponent();
-    await waitFor(() => screen.getByText("Action Movie"));
+    await screen.findByText("Action Movie");
 
     fireEvent.click(screen.getByRole("button", { name: "Fantasy" }));
     fireEvent.change(screen.getByLabelText("Min Rating"), { target: { value: "9" } });
 
-    await waitFor(() => {
-      expect(screen.getByText("No movies found")).toBeInTheDocument();
-      expect(screen.getByText("Try adjusting your search or filters")).toBeInTheDocument();
-      expect(screen.queryByText("Action Movie")).not.toBeInTheDocument();
-      expect(screen.queryByText("Drama Movie")).not.toBeInTheDocument();
-      expect(screen.queryByText("Comedy Movie")).not.toBeInTheDocument();
-    });
+    expect(await screen.findByText("No movies found")).toBeInTheDocument();
+    expect(screen.getByText("Try adjusting your search or filters")).toBeInTheDocument();
+    expect(screen.queryByText("Action Movie")).not.toBeInTheDocument();
+    expect(screen.queryByText("Drama Movie")).not.toBeInTheDocument();
+    expect(screen.queryByText("Comedy Movie")).not.toBeInTheDocument();
   });
 });

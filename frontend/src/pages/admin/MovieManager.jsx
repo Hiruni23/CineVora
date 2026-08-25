@@ -137,14 +137,22 @@ const MovieManager = () => {
                   )}
                 </td>
                 <td className="moviemanager-actions">
-                  <MdEdit
+                  <button
+                    type="button"
                     className="moviemanager-edit"
+                    aria-label={`Edit ${movie.title}`}
                     onClick={() => handleEdit(movie._id)}
-                  />
-                  <MdDelete
+                  >
+                    <MdEdit aria-hidden="true" />
+                  </button>
+                  <button
+                    type="button"
                     className="moviemanager-delete"
+                    aria-label={`Delete ${movie.title}`}
                     onClick={() => handleDelete(movie._id)}
-                  />
+                  >
+                    <MdDelete aria-hidden="true" />
+                  </button>
                 </td>
               </tr>
             ))}

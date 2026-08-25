@@ -28,18 +28,14 @@ describe("Home Component", () => {
 
   test("renders Now Showing and Coming Soon sections", async () => {
     renderHome();
-    await waitFor(() => {
-      expect(screen.getByText("Now Showing")).toBeInTheDocument();
-      expect(screen.getByText("Coming Soon")).toBeInTheDocument();
-    });
+    expect(await screen.findByText("Now Showing")).toBeInTheDocument();
+    expect(screen.getByText("Coming Soon")).toBeInTheDocument();
   });
 
   test("renders movies in the correct sections", async () => {
     renderHome();
-    await waitFor(() => {
-      expect(screen.getByText("Action Movie")).toBeInTheDocument();
-      expect(screen.getByText("Drama Movie")).toBeInTheDocument();
-      expect(screen.getByText("Comedy Movie")).toBeInTheDocument();
-    });
+    expect(await screen.findByText("Action Movie")).toBeInTheDocument();
+    expect(screen.getByText("Drama Movie")).toBeInTheDocument();
+    expect(screen.getByText("Comedy Movie")).toBeInTheDocument();
   });
 });

@@ -80,7 +80,6 @@ describe("AddMovie Component", () => {
     fireEvent.click(screen.getByRole("button", { name: /Add Movie/i }));
 
     await waitFor(() => {
-      expect(createMovie).toHaveBeenCalledTimes(1);
       expect(createMovie).toHaveBeenCalledWith({
         title: "Test Movie",
         description: "Test Description",
@@ -93,7 +92,8 @@ describe("AddMovie Component", () => {
         status: "now",
       });
 
-      expect(mockNavigate).toHaveBeenCalledWith("/admin/movies");
     });
+    expect(createMovie).toHaveBeenCalledTimes(1);
+    expect(mockNavigate).toHaveBeenCalledWith("/admin/movies");
   });
 });

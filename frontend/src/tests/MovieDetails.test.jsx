@@ -1,12 +1,14 @@
 import React from "react";
-import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
+import MovieDetails from "../pages/customers/MovieDetails";
+import { getMovieById } from "../services/movieService";
+import API from "../services/api";
 
 jest.mock("../services/movieService", () => ({
   getMovieById: jest.fn(),
 }));
-import { getMovieById } from "../services/movieService";
 
 jest.mock("../services/api", () => ({
   __esModule: true,
@@ -14,7 +16,6 @@ jest.mock("../services/api", () => ({
     get: jest.fn(),
   },
 }));
-import API from "../services/api";
 
 const mockNavigate = jest.fn();
 jest.mock("react-router-dom", () => ({
@@ -38,8 +39,6 @@ const mockMovie = {
   releaseYear: 2024,
   director: "Test Director",
 };
-
-import MovieDetails from "../pages/customers/MovieDetails";
 
 describe("MovieDetails Component", () => {
   beforeEach(() => {
@@ -67,12 +66,10 @@ describe("MovieDetails Component", () => {
 
     expect(screen.getByText(/Loading movie/i)).toBeInTheDocument();
 
-    await waitFor(() => {
-      expect(screen.getByText("Test Movie")).toBeInTheDocument();
-      expect(screen.getByText(/Action/i)).toBeInTheDocument();
-      expect(screen.getByText("Test movie description")).toBeInTheDocument();
-      expect(screen.getByAltText("Test Movie")).toBeInTheDocument();
-    });
+    expect(await screen.findByText("Test Movie")).toBeInTheDocument();
+    expect(screen.getByText(/Action/i)).toBeInTheDocument();
+    expect(screen.getByText("Test movie description")).toBeInTheDocument();
+    expect(screen.getByAltText("Test Movie")).toBeInTheDocument();
   });
 
   test("Book Now button navigates to booking page", async () => {
@@ -82,7 +79,7 @@ describe("MovieDetails Component", () => {
       </MemoryRouter>
     );
 
-    await waitFor(() => screen.getByText(/Book Now/i));
+    await screen.findByText(/Book Now/i);
 
     fireEvent.click(screen.getByText(/Book Now/i));
     expect(mockNavigate).toHaveBeenCalledWith("/buy-tickets/1");
@@ -95,7 +92,7 @@ describe("MovieDetails Component", () => {
       </MemoryRouter>
     );
 
-    await waitFor(() => screen.getByText(/Watch Trailer/i));
+    await screen.findByText(/Watch Trailer/i);
 
     expect(screen.queryByTitle(/Test Movie/i)).not.toBeInTheDocument();
 
