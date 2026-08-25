@@ -13,9 +13,9 @@ const TicketTypePage = () => {
   const showtimeId = state.showtimeId || params.showtimeId;
   const seats = Array.isArray(state.seats) ? state.seats : [];
   const movieTitle = state.movieTitle || 'Selected Movie';
-  const areaLabel = state.areaLabel || 'Selected Area';
+  const areaLabel = state.areaLabel || 'Standard Auditorium';
   const baseTotal = Number(state.totalPrice || 0);
-  const selectedSeatCount = seats.length || Number(state.selectedSeatCount) || 0;
+  const selectedSeatCount = seats.length || Number(state.selectedSeatCount) || 1;
 
   const [counts, setCounts] = useState(() => createEmptyTicketTypeCounts(selectedSeatCount || 1));
 
@@ -24,8 +24,9 @@ const TicketTypePage = () => {
     [counts, baseTotal, selectedSeatCount]
   );
 
-  const totalSelected = summary.items.reduce((sum, item) => sum + item.quantity, 0);
-  const canProceed = selectedSeatCount > 0 && totalSelected === selectedSeatCount;
+  const totalAssigned = summary.items.reduce((sum, item) => sum + item.quantity, 0);
+  const remaining = selectedSeatCount - totalAssigned;
+  const canProceed = selectedSeatCount > 0 && totalAssigned === selectedSeatCount;
 
   const updateCount = (key, delta) => {
     setCounts((current) => {
@@ -33,11 +34,7 @@ const TicketTypePage = () => {
       const currentTotal = Object.values(current).reduce((sum, value) => sum + value, 0);
       const currentValue = Number(current[key] || 0);
       const nextValue = Math.max(0, currentValue + delta);
-
-      if (delta > 0 && currentTotal >= selectedSeatCount) {
-        return current;
-      }
-
+      if (delta > 0 && currentTotal >= selectedSeatCount) return current;
       next[key] = nextValue;
       return next;
     });
@@ -45,12 +42,11 @@ const TicketTypePage = () => {
 
   const handleProceed = () => {
     if (!canProceed) return;
-
     navigate('/create-booking', {
       state: {
         ...state,
         showtimeId,
-        ticketTypes: summary.items,
+        ticketTypes: summary.items.filter(item => item.quantity > 0),
         ticketTypeTotal: summary.total,
         ticketTypeBasePerSeat: summary.basePerSeat,
         totalPrice: summary.total,
@@ -62,82 +58,118 @@ const TicketTypePage = () => {
   };
 
   return (
-    <div className="ticket-type-page">
-      <div className="ticket-type-shell">
-        <button className="ticket-type-back" onClick={() => navigate(-1)}>
-          <FaArrowLeft />
-          <span>Back</span>
+    <div className="ttp-page">
+      <div className="ttp-shell">
+
+        {/* Back Button */}
+        <button className="ttp-back-btn" onClick={() => navigate(-1)}>
+          <FaArrowLeft size={12} />
+          <span>Back to Seats</span>
         </button>
 
-        <div className="ticket-type-card">
-          <div className="ticket-type-hero">
-            <div>
-              <span className="ticket-type-kicker">Select ticket type</span>
-              <h1>Choose your mix</h1>
-              <p>Assign adult and child tickets before continuing to concessions and payment.</p>
-            </div>
-
-            <div className="ticket-type-info-pill">
-              <span className="pill-label">Now selecting</span>
-              <strong>{selectedSeatCount} ticket{selectedSeatCount === 1 ? '' : 's'}</strong>
-              <span className="pill-sub">Area: {areaLabel}</span>
-            </div>
+        {/* Page Header */}
+        <div className="ttp-header">
+          <div>
+            <p className="ttp-step-label">Step 2 of 3 — Ticket Categories</p>
+            <h1 className="ttp-title">Select Ticket Types</h1>
+            <p className="ttp-subtitle">
+              {selectedSeatCount} {selectedSeatCount === 1 ? 'seat' : 'seats'} selected in <strong>{areaLabel}</strong>
+            </p>
           </div>
-
-          <div className="ticket-type-content">
-            <div className="ticket-type-list">
-              {TICKET_TYPE_OPTIONS.map((option) => {
-                const quantity = counts[option.key] || 0;
-                const currentItem = summary.items.find((item) => item.key === option.key);
-
-                return (
-                  <article className="ticket-type-option" key={option.key}>
-                    <div className="ticket-type-option__meta">
-                      <span className="ticket-type-badge">{option.accent}</span>
-                      <h2>{option.label}</h2>
-                      <p>{option.description}</p>
-                      <div className="ticket-type-price">
-                        Rs. {currentItem ? currentItem.unitPrice.toFixed(2) : '0.00'}
-                        <span>per ticket</span>
-                      </div>
-                    </div>
-
-                    <div className="ticket-type-stepper">
-                      <button type="button" onClick={() => updateCount(option.key, -1)} disabled={quantity === 0}>-</button>
-                      <div className="ticket-type-count">{quantity}</div>
-                      <button type="button" onClick={() => updateCount(option.key, 1)} disabled={totalSelected >= selectedSeatCount}>+</button>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-
-            <aside className="ticket-type-summary">
-              <div className="summary-heading">
-                <span>Booking summary</span>
-                <strong>{totalSelected}/{selectedSeatCount}</strong>
-              </div>
-
-              <div className="summary-list">
-                {summary.items.map((item) => (
-                  <div className="summary-row" key={item.key}>
-                    <span>{item.label}</span>
-                    <strong>{item.quantity} x Rs. {item.unitPrice.toFixed(2)}</strong>
-                  </div>
-                ))}
-              </div>
-
-              <div className="summary-total">
-                <span>Ticket total</span>
-                <strong>Rs. {summary.total.toFixed(2)}</strong>
-              </div>
-
-              <button className="ticket-type-proceed" onClick={handleProceed} disabled={!canProceed}>
-                Proceed to booking
-              </button>
-            </aside>
+          <div className={`ttp-assign-badge ${canProceed ? 'ttp-assign-badge--done' : ''}`}>
+            <span className="ttp-assign-nums">{totalAssigned} / {selectedSeatCount}</span>
+            <span className="ttp-assign-label">
+              {canProceed ? 'All assigned ✓' : `${remaining} remaining`}
+            </span>
           </div>
         </div>
+
+        {/* Main Content */}
+        <div className="ttp-content">
+
+          {/* Ticket Type List */}
+          <div className="ttp-list">
+            {TICKET_TYPE_OPTIONS.map((option) => {
+              const quantity = counts[option.key] || 0;
+              const currentItem = summary.items.find((item) => item.key === option.key);
+              const unitPrice = currentItem ? currentItem.unitPrice : 0;
+
+              return (
+                <div
+                  key={option.key}
+                  className={`ttp-row ${quantity > 0 ? 'ttp-row--selected' : ''}`}
+                >
+                  <div className="ttp-row-info">
+                    <div className="ttp-row-name-line">
+                      <span className="ttp-row-name">{option.label}</span>
+                      {option.tag && <span className="ttp-row-discount">{option.tag}</span>}
+                    </div>
+                    <p className="ttp-row-desc">{option.description}</p>
+                    <span className="ttp-row-price">Rs. {unitPrice.toFixed(2)} / ticket</span>
+                  </div>
+
+                  <div className="ttp-stepper">
+                    <button
+                      className="ttp-stepper-btn"
+                      onClick={() => updateCount(option.key, -1)}
+                      disabled={quantity === 0}
+                      aria-label="Decrease"
+                    >−</button>
+                    <span className="ttp-stepper-count">{quantity}</span>
+                    <button
+                      className="ttp-stepper-btn"
+                      onClick={() => updateCount(option.key, 1)}
+                      disabled={totalAssigned >= selectedSeatCount}
+                      aria-label="Increase"
+                    >+</button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Order Summary */}
+          <aside className="ttp-summary">
+            <div className="ttp-summary-header">
+              <span className="ttp-summary-title">Order Summary</span>
+              <span className="ttp-summary-seats">{totalAssigned} of {selectedSeatCount} seats</span>
+            </div>
+
+            <div className="ttp-summary-movie">
+              <span className="ttp-summary-movie-name">{movieTitle}</span>
+              <span className="ttp-summary-hall">{areaLabel}</span>
+            </div>
+
+            <div className="ttp-summary-items">
+              {summary.items.filter(i => i.quantity > 0).length === 0 ? (
+                <p className="ttp-summary-empty">Assign tickets to see pricing</p>
+              ) : (
+                summary.items.filter(i => i.quantity > 0).map((item) => (
+                  <div className="ttp-summary-row" key={item.key}>
+                    <span>{item.quantity}× {item.label}</span>
+                    <span>Rs. {item.totalPrice.toFixed(2)}</span>
+                  </div>
+                ))
+              )}
+            </div>
+
+            <div className="ttp-summary-total">
+              <span>Total</span>
+              <strong>Rs. {summary.total.toFixed(2)}</strong>
+            </div>
+
+            <button
+              className="ttp-proceed-btn"
+              onClick={handleProceed}
+              disabled={!canProceed}
+            >
+              {canProceed
+                ? 'Proceed to Payment →'
+                : `Assign ${remaining} more ${remaining === 1 ? 'ticket' : 'tickets'}`}
+            </button>
+          </aside>
+        </div>
+
       </div>
     </div>
   );
