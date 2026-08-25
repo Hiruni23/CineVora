@@ -1,406 +1,507 @@
-/* SeatMap.css - Scope Cinemas Professional Theme */
+/* =====================================================
+   SEAT BOOKING & MAP — CineVora Luxury Cinema Theme
+   ===================================================== */
 
-.cinema-container {
+.seat-booking-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(200, 16, 46, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(212, 175, 55, 0.06) 0%, transparent 50%),
+    var(--bg-primary, #07111F);
+  color: var(--text-primary, #F5F5F5);
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 120px; /* Space for checkout bar */
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ── Loading Screen ── */
+.seat-loading-box {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
-  padding: 40px 20px;
-}
-
-/* Header & Price Bar */
-.header-info {
-  text-align: center;
-  margin-bottom: 30px;
-  border-bottom: 1px solid #333;
-  padding-bottom: 20px;
-  width: 100%;
-  max-width: 800px;
-}
-.header-info h2 { margin: 0; font-size: 1.5rem; letter-spacing: 2px; }
-.header-info p { color: #888; font-size: 0.9rem; margin-top: 5px; }
-
-/* The Curved Screen */
-.screen-container {
-  perspective: 800px;
-  margin-bottom: 60px;
-  display: flex;
   justify-content: center;
+  min-height: 60vh;
+  gap: 16px;
+  color: var(--text-secondary, #A6A6A6);
 }
-.screen {
-  background: linear-gradient(to bottom, #fff, transparent);
-  height: 40px;
-  width: 500px;
-  transform: rotateX(-20deg) scale(0.9);
-  box-shadow: 0 40px 60px -10px rgba(255, 255, 255, 0.15);
-  border-radius: 50% 50% 0 0;
-  opacity: 0.4;
+.seat-loading-spinner {
+  width: 44px;
+  height: 44px;
+  border: 3px solid var(--border-strong, #31587E);
+  border-top-color: var(--accent-gold, #D4AF37);
+  border-radius: 50%;
+  animation: seat-spin 0.8s linear infinite;
+}
+@keyframes seat-spin { to { transform: rotate(360deg); } }
+
+/* ── Top Bar Header ── */
+.seat-header {
+  background: rgba(13, 27, 45, 0.85);
+  border-bottom: 1px solid var(--border, #203A56);
+  backdrop-filter: blur(16px);
+  padding: 18px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.seat-header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.seat-back-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-strong, #31587E);
+  color: var(--text-primary, #F5F5F5);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 100px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  font-family: var(--font-body, sans-serif);
+  flex-shrink: 0;
+}
+.seat-back-btn:hover {
+  background: rgba(212, 175, 55, 0.12);
+  border-color: var(--accent-gold, #D4AF37);
+  color: var(--accent-gold, #D4AF37);
+  transform: translateX(-2px);
+}
+
+.seat-movie-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.seat-movie-title {
+  font-family: var(--font-display, 'Cinzel', serif);
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin: 0;
+  color: var(--text-primary, #F5F5F5);
+  letter-spacing: 0.02em;
+}
+
+.seat-meta-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.seat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border, #203A56);
+  border-radius: 100px;
+  padding: 3px 10px;
+  font-size: 0.75rem;
+  color: var(--text-secondary, #A6A6A6);
+  font-weight: 600;
+}
+
+.seat-chip--gold {
+  background: rgba(212, 175, 55, 0.12);
+  border-color: rgba(212, 175, 55, 0.35);
+  color: var(--accent-gold, #D4AF37);
+  font-weight: 700;
+}
+
+/* ── Main Stage Area ── */
+.seat-main-stage {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── Cinema Screen & Glow ── */
+.cinema-screen-wrap {
+  width: 100%;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 36px;
   position: relative;
 }
-/* "SCREEN" Text */
-.screen::after {
-  content: "SCREEN";
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 10px; letter-spacing: 5px; color: #000;
-  font-weight: bold;
+
+.cinema-screen-arch {
+  width: 100%;
+  height: 12px;
+  border-top: 4px solid var(--accent-gold, #D4AF37);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  box-shadow: 
+    0 -4px 20px rgba(212, 175, 55, 0.5),
+    0 -10px 40px rgba(200, 16, 46, 0.3);
+  position: relative;
 }
 
-/* The Seat Grid */
-.seat-grid {
+.cinema-screen-glow {
+  width: 90%;
+  height: 48px;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.12) 0%, rgba(200, 16, 46, 0.04) 50%, transparent 100%);
+  filter: blur(8px);
+  margin-top: -6px;
+  border-radius: 50% 50% 0 0;
+  pointer-events: none;
+}
+
+.cinema-screen-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: var(--text-muted, #6B6B6B);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: -16px;
+  text-transform: uppercase;
+}
+
+/* ── Legend Bar ── */
+.seat-legend-bar {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 36px;
+  padding: 10px 24px;
+  background: rgba(13, 27, 45, 0.7);
+  border: 1px solid var(--border, #203A56);
+  border-radius: 100px;
+  backdrop-filter: blur(10px);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.legend-entry {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary, #A6A6A6);
+}
+
+.legend-swatch {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+}
+
+.legend-swatch--available {
+  background: #14283E;
+  border: 1px solid #284968;
+}
+
+.legend-swatch--vip {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.25) 0%, rgba(200, 16, 46, 0.2) 100%);
+  border: 1px solid var(--accent-gold, #D4AF37);
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.35);
+}
+
+.legend-swatch--selected {
+  background: var(--accent-gold, #D4AF37);
+  border: 1px solid #f5d77f;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+}
+
+.legend-swatch--booked {
+  background: #2E1521;
+  border: 1px solid #4A1D33;
+}
+
+/* ── Seat Grid Scroller (Mobile-Friendly) ── */
+.seat-grid-scroller {
+  width: 100%;
+  overflow-x: auto;
+  padding: 10px 0 30px;
+  display: flex;
+  justify-content: center;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong, #31587E) transparent;
+}
+.seat-grid-scroller::-webkit-scrollbar {
+  height: 6px;
+}
+.seat-grid-scroller::-webkit-scrollbar-thumb {
+  background: var(--border-strong, #31587E);
+  border-radius: 4px;
+}
+
+.seat-grid-board {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
+  padding: 10px 20px;
+  min-width: max-content;
 }
 
-.seat-row {
+/* ── Single Seat Row Line ── */
+.seat-row-line {
   display: flex;
-  gap: 8px; /* Standard gap between seats */
-  justify-content: center;
+  align-items: center;
+  gap: 14px;
+}
+
+.row-letter-badge {
+  font-family: var(--font-display, 'Cinzel', serif);
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--text-muted, #6B6B6B);
+  width: 22px;
+  text-align: center;
+  user-select: none;
+}
+
+.row-vip-badge {
+  display: block;
+  font-size: 0.55rem;
+  font-weight: 800;
+  color: var(--accent-gold, #D4AF37);
+  letter-spacing: 0.04em;
+  margin-top: 1px;
+}
+
+.seat-row-line--vip {
+  padding: 4px 0;
+  border-radius: 6px;
+  background: rgba(212, 175, 55, 0.03);
+}
+
+.seat-row-seats {
+  display: flex;
+  gap: 8px;
   align-items: center;
 }
 
-.row-label {
-  width: 30px;
-  text-align: center;
-  font-weight: bold;
-  color: #555;
-  font-size: 0.8rem;
-}
-
-/* The Seat Box */
-.seat {
-  width: 32px;
-  height: 32px;
-  border: 1px solid #4a4d66; /* Subtle Blue Outline */
+/* ── Seat Node Button ── */
+.seat-node {
+  width: 34px;
+  height: 34px;
   border-radius: 6px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-size: 10px;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-family: var(--font-body, sans-serif);
   cursor: pointer;
-  transition: all 0.2s ease;
-  background-color: transparent; /* Transparent center like the photo */
-  color: #aaa;
+  transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+  padding: 0;
+  position: relative;
+  outline: none;
+  box-sizing: border-box;
 }
 
-/* Creating the Aisles (Gaps) */
-.aisle-gap {
-  margin-right: 40px; /* Big gap to create walking path */
+/* 1. AVAILABLE */
+.seat-node--available {
+  background: #10243A;
+  border: 1px solid #284968;
+  color: #7B9AB8;
 }
-
-/* States */
-.seat.AVAILABLE:hover {
-  border-color: #fff;
+.seat-node--available:hover {
+  background: #1D3F65;
+  border-color: var(--accent-gold, #D4AF37);
   color: #fff;
-  transform: scale(1.1);
-  box-shadow: 0 0 10px rgba(255,255,255,0.2);
+  transform: translateY(-3px) scale(1.1);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
 }
 
-.seat.LOCKED {
-  background-color: #fbbf24; /* Gold */
-  border-color: #fbbf24;
-  color: #000;
-  font-weight: bold;
-  box-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+/* 2. VIP RECLINER AVAILABLE */
+.seat-node--vip {
+  background: linear-gradient(135deg, #182F48 0%, #1A253A 100%);
+  border: 1.5px solid rgba(212, 175, 55, 0.6);
+  color: #E2CA76;
 }
-
-.seat.BOOKED {
-  background-color: #ef4444; /* Red */
-  border-color: #ef4444;
+.seat-node--vip:hover {
+  background: #25466A;
+  border-color: var(--accent-gold, #D4AF37);
   color: #fff;
-  opacity: 0.3;
+  transform: translateY(-3px) scale(1.12);
+  box-shadow: 0 0 14px rgba(212, 175, 55, 0.5);
+}
+
+/* 3. SELECTED (CineVora Gold) */
+.seat-node--selected {
+  background: linear-gradient(135deg, #E6C254 0%, var(--accent-gold, #D4AF37) 100%);
+  border: 1px solid #fff;
+  color: #07111F;
+  font-weight: 900;
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 0 16px rgba(212, 175, 55, 0.7), 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+.seat-node--selected:hover {
+  transform: translateY(-3px) scale(1.15);
+}
+
+/* 4. BOOKED / OCCUPIED */
+.seat-node--booked {
+  background: #2E1521;
+  border: 1px solid #4A1D33;
+  color: #6E3B4F;
   cursor: not-allowed;
+  opacity: 0.55;
 }
 
-/* Bottom Legend */
-.legend {
-  margin-top: 50px;
-  display: flex;
-  gap: 30px;
-  background: #1a1d33;
-  padding: 15px 30px;
-  border-radius: 50px;
-}
-.legend-item { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: #ccc; }
-.legend-box { width: 20px; height: 20px; border-radius: 4px; border: 1px solid #555; }
-
-/* Seat Legend - Above the Grid */
-.seat-legend {
-  display: flex;
-  gap: 30px;
-  margin-bottom: 30px;
-  padding: 15px 30px;
-  background: rgba(26, 29, 51, 0.5);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+/* 4. GAP / AISLE */
+.seat-node--gap {
+  background: transparent !important;
+  border: none !important;
+  pointer-events: none !important;
+  visibility: hidden;
+  cursor: default;
 }
 
-.seat-legend .legend-item {
+.seat-node-num {
+  line-height: 1;
+}
+
+/* ── Floating Sticky Checkout Bar ── */
+.seat-checkout-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(13, 27, 45, 0.96);
+  border-top: 1px solid var(--border-strong, #31587E);
+  backdrop-filter: blur(20px);
+  padding: 16px 24px;
+  z-index: 100;
+  box-shadow: 0 -10px 36px rgba(0, 0, 0, 0.6);
+}
+
+.seat-checkout-inner {
+  max-width: 1100px;
+  margin: 0 auto;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.seat-summary-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.seat-count-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: var(--text-primary, #F5F5F5);
+}
+.seat-count-tag svg {
+  color: var(--accent-gold, #D4AF37);
+}
+
+.seat-badges-pills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  max-height: 36px;
+  overflow-y: auto;
+}
+
+.seat-badge-pill {
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: var(--accent-gold, #D4AF37);
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+}
+
+.seat-summary-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.seat-price-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.seat-price-sub {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted, #6B6B6B);
+  font-weight: 600;
+}
+
+.seat-price-val {
+  font-family: var(--font-display, 'Cinzel', serif);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--accent-gold, #D4AF37);
+  line-height: 1;
+}
+
+.seat-continue-btn {
+  background: linear-gradient(135deg, var(--accent-red, #C8102E) 0%, #8f1027 100%);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm, 4px);
+  padding: 12px 28px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  font-family: var(--font-body, sans-serif);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-size: 0.9rem;
-  color: #e2e8f0;
-  font-weight: 500;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 20px rgba(200, 16, 46, 0.4);
+  white-space: nowrap;
+}
+.seat-continue-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(200, 16, 46, 0.6);
+}
+.seat-continue-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
-.seat-legend .legend-box {
-  width: 24px;
-  height: 24px;
-  border-radius: 6px;
-  border: 1px solid #4a4d66;
-}
-
-.seat-legend .legend-box.selected {
-  background-color: #ff3d00;
-  border-color: #ff3d00;
-}
-
-.seat-legend .legend-box.available {
-  background-color: transparent;
-  border-color: #4a4d66;
-}
-
-.seat-legend .legend-box.booked {
-  background-color: #ef4444;
-  border-color: #ef4444;
-}
-
-.seat-legend .legend-box.unavailable {
-  background-color: #0e1022;
-  border-color: #4a4d66;
-}
-
-/* The Bottom Summary Bar */
-.summary-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #1f2238;
-    border-top: 1px solid #333;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    align-items: center;
-    box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
-    z-index: 100;
-}
-.btn-pay {
-    padding: 10px 30px;
-    background: linear-gradient(45deg, #eab308, #ca8a04);
-    border: none;
-    color: black;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.btn-pay:hover { filter: brightness(1.1); }
-/* -- COPY THIS INTO SeatMap.css -- */
-
-/* Makes the seat Yellow when clicked */
-.seat.selected {
-    background-color: #facc15 !important; /* Yellow */
-    color: black;
-    border: 2px solid orange;
-}
-
-/* Makes booked seats Red */
-.seat.booked {
-    background-color: #ef4444 !important; /* Red */
-    cursor: not-allowed;
-    pointer-events: none; /* Prevents clicking */
-}
-
-/* Makes available seats White */
-.seat.available {
-    background-color: white;
-    cursor: pointer;
-}
-
-/* The footer bar that appears when you select seats */
-.summary-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #222;
-    color: white;
-    padding: 15px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border-top: 3px solid #facc15;
-}
-/* Add this class for the invisible gaps */
-.seat.gap {
-    background-color: transparent !important;
-    border: none !important;
-    cursor: default;
-    pointer-events: none; /* Cannot click a gap */
-    visibility: hidden; /* Makes it invisible but keeps the space */
-}
-/* --- Main Container --- */
-.cinema-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #0f172a; /* Deep dark blue background */
-    min-height: 100vh;
-    padding: 20px;
-    color: #e2e8f0; /* Light text color */
-}
-
-.header-info h2 {
-    margin-bottom: 20px;
-    letter-spacing: 1px;
-}
-
-/* --- The Screen --- */
-.screen-container {
-    perspective: 1000px;
-    margin-bottom: 40px;
-}
-
-.screen {
-    background-color: #1e293b; /* Darker screen */
-    height: 60px;
-    width: 300px;
-    margin: 0 auto;
-    transform: rotateX(-45deg);
-    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.1);
-    text-align: center;
-    line-height: 60px;
-    font-size: 14px;
-    color: #94a3b8; /* Dim text for screen */
-    letter-spacing: 4px;
-}
-
-/* --- Seat Grid --- */
-.seat-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 80px; /* Space for footer */
-}
-
-.seat-row {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
-.row-label {
-    font-weight: bold;
-    margin-right: 15px;
-    color: #64748b; /* Dim color for row letters */
-    width: 20px;
-}
-
-/* Common Seat Style */
-.seat {
-    width: 35px;
-    height: 35px;
-    border-radius: 6px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 12px;
-    transition: all 0.2s;
-    user-select: none;
-}
-
-/* --- COLOR CHANGES START HERE --- */
-
-/* 1. Available Seat (Dark Blue like the image) */
-.seat.available {
-    background-color: #334155;
-    color: #e2e8f0;
-    border: 1px solid #475569;
-    cursor: pointer;
-}
-.seat.available:hover {
-    background-color: #475569; 
-}
-
-/* 2. Selected Seat (YOUR COLOR) */
-.seat.selected {
-    background-color: #ff3d00 !important; /* The vivid orange-red you asked for */
-    color: white;
-    border: 2px solid #cc3100; /* Slightly darker border for 3D effect */
-    font-weight: bold;
-    box-shadow: 0 0 10px rgba(255, 61, 0, 0.4); /* Glow effect */
-}
-
-/* 3. Booked Seat (Dark Red) */
-.seat.booked {
-    background-color: #7f1d1d !important;
-    color: #fca5a5;
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-
-/* 4. Invisible Gap */
-.seat.gap {
-    background-color: transparent !important;
-    border: none !important;
-    pointer-events: none;
-    visibility: hidden;
-}
-
-/* --- Footer Summary Bar --- */
-.summary-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #1e293b; 
-    color: white;
-    padding: 15px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid #334155;
-    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
-}
-
-/* --- Button Styles --- */
-.button-group {
-    display: flex;
-    gap: 15px;
-}
-
-/* Pay Button (YOUR COLOR) */
-.btn-pay {
-    padding: 12px 25px;
-    background: #ff3d00; /* The vivid orange-red */
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    color: white;
-    border-radius: 6px;
-    font-size: 1em;
-    transition: background 0.2s;
-}
-.btn-pay:hover {
-    background: #e63700; /* Slightly darker on hover */
-}
-
-.btn-cancel {
-    padding: 12px 25px;
-    background: transparent;
-    border: 2px solid #ef4444; /* Red outline */
-    font-weight: bold;
-    cursor: pointer;
-    color: #ef4444; /* Red text */
-    border-radius: 6px;
-    font-size: 1em;
-    transition: all 0.2s;
-}
-.btn-cancel:hover {
-    background: #ef4444;
-    color: white;
+/* ── Responsive Breakpoints ── */
+@media (max-width: 768px) {
+  .seat-header { padding: 14px 16px; }
+  .seat-movie-title { font-size: 1.1rem; }
+  .seat-main-stage { padding: 24px 12px 10px; }
+  .seat-node { width: 30px; height: 30px; font-size: 0.68rem; }
+  .seat-row-seats { gap: 6px; }
+  .seat-checkout-bar { padding: 12px 16px; }
+  .seat-checkout-inner { justify-content: center; text-align: center; }
+  .seat-summary-left { justify-content: center; width: 100%; }
+  .seat-summary-right { justify-content: space-between; width: 100%; }
+  .seat-continue-btn { padding: 10px 20px; font-size: 0.88rem; }
 }

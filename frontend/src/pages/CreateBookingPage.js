@@ -243,96 +243,90 @@ const CreateBookingPage = () => {
               <div className="section-header">
                 <div>
                   <span className="section-kicker">Concessions</span>
-                  <h2>Choose flavor and quantity</h2>
+                  <h2>Snacks &amp; Drinks <span className="concession-optional">(Optional)</span></h2>
                 </div>
+                <span className="concession-total-badge">
+                  Rs. {concessionsTotal.toFixed(2)}
+                </span>
               </div>
 
-              <div className="booking-note">
-                Add as many popcorn and drink flavor rows as you want. Each row can use a different flavor and quantity.
-              </div>
+              <div className="concession-clean-list">
+                {CONCESSION_CATEGORIES.map((group) => {
+                  const categorySelections = Array.isArray(concessionSelection[group.key]) ? concessionSelection[group.key] : [];
 
-              <div className="concession-grid">
-            {CONCESSION_CATEGORIES.map((group) => {
-              const categorySelections = Array.isArray(concessionSelection[group.key]) ? concessionSelection[group.key] : [];
-              const categoryTotal = concessions.filter((item) => item.category === group.key).reduce((sum, item) => sum + item.totalPrice, 0);
+                  return (
+                    <div key={group.key} className="concession-category-block">
+                      {/* Category Label Row */}
+                      <div className="concession-category-label">
+                        <span>{group.title}</span>
+                        {categorySelections.length > 0 && (
+                          <span className="concession-category-count">{categorySelections.length} added</span>
+                        )}
+                      </div>
 
-              return (
-                <div key={group.key} className="concession-card">
-                  <div className="concession-card__header">
-                    <div>
-                      <span className="section-kicker">{group.title}</span>
-                      <h3>{categorySelections.length > 0 ? `${categorySelections.length} item${categorySelections.length > 1 ? 's' : ''} selected` : 'No items selected'}</h3>
+                      {/* Item Rows */}
+                      {categorySelections.length === 0 && (
+                        <p className="concession-empty-hint">None selected</p>
+                      )}
+
+                      {categorySelections.map((categorySelection, rowIndex) => {
+                        const itemKey = categorySelection.itemKey || group.defaultItemKey;
+                        const selectedItem = CONCESSION_CATALOG[itemKey];
+                        const qty = categorySelection.quantity || 1;
+
+                        return (
+                          <div key={`${group.key}-${rowIndex}`} className="concession-item-row">
+                            {/* Flavor Select */}
+                            <select
+                              className="concession-select"
+                              value={itemKey}
+                              onChange={(e) => updateConcessionRow(group.key, rowIndex, 'itemKey', e.target.value)}
+                            >
+                              {group.options.map((optionKey) => (
+                                <option key={optionKey} value={optionKey}>
+                                  {CONCESSION_CATALOG[optionKey].name}
+                                </option>
+                              ))}
+                            </select>
+
+                            {/* Unit Price */}
+                            <span className="concession-unit-price">Rs. {selectedItem.unitPrice}</span>
+
+                            {/* Qty Stepper */}
+                            <div className="concession-inline-stepper">
+                              <button type="button" onClick={() => updateConcessionQuantity(group.key, rowIndex, -1)} disabled={qty <= 1}>−</button>
+                              <span>{qty}</span>
+                              <button type="button" onClick={() => updateConcessionQuantity(group.key, rowIndex, 1)}>+</button>
+                            </div>
+
+                            {/* Row Total */}
+                            <span className="concession-row-total">Rs. {(selectedItem.unitPrice * qty).toFixed(2)}</span>
+
+                            {/* Remove */}
+                            <button
+                              type="button"
+                              className="concession-remove-btn"
+                              onClick={() => removeConcessionRow(group.key, rowIndex)}
+                              title="Remove"
+                            >×</button>
+                          </div>
+                        );
+                      })}
+
+                      {/* Add Row Button */}
+                      <button
+                        type="button"
+                        className="concession-add-row-btn"
+                        onClick={() => addConcessionRow(group.key, group.defaultItemKey)}
+                      >
+                        + Add {group.addLabel || group.title.toLowerCase()}
+                      </button>
                     </div>
-                    <span className="concession-card__price">Rs. {categoryTotal.toFixed(2)}</span>
-                  </div>
-
-                  <div className="concession-stack">
-                    {categorySelections.map((categorySelection, rowIndex) => {
-                      const selectedItem = CONCESSION_CATALOG[categorySelection.itemKey || group.defaultItemKey];
-                      const usedKeys = categorySelections
-                        .map((row, index) => (index === rowIndex ? null : row.itemKey))
-                        .filter(Boolean);
-
-                      return (
-                        <div key={`${group.key}-${rowIndex}`} className="concession-subcard">
-                          <div className="concession-row-head">
-                            <span className="concession-row-badge">Flavor {rowIndex + 1}</span>
-                            <span className="concession-row-price">Rs. {selectedItem.unitPrice}</span>
-                          </div>
-
-                          <div className="concession-field">
-                            <label className="label">Pick a flavor</label>
-                            <div className="flavor-grid">
-                              {group.options.map((optionKey) => {
-                                const option = CONCESSION_CATALOG[optionKey];
-                                const isActive = (categorySelection.itemKey || group.defaultItemKey) === optionKey;
-                                const isUsed = usedKeys.includes(optionKey);
-
-                                return (
-                                  <button
-                                    key={optionKey}
-                                    type="button"
-                                    className={`flavor-chip ${isActive ? 'flavor-chip--active' : ''}`}
-                                    disabled={isUsed && !isActive}
-                                    onClick={() => updateConcessionRow(group.key, rowIndex, 'itemKey', optionKey)}
-                                  >
-                                    <span className="flavor-chip__name">{option.name}</span>
-                                    <span className="flavor-chip__price">Rs. {option.unitPrice}</span>
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          </div>
-
-                          <div className="concession-card__footer">
-                            <div className="concession-quantity">
-                              <span className="label">{selectedItem.name}</span>
-                              <span className="concession-quantity__value">Qty {categorySelection.quantity || 0}</span>
-                            </div>
-
-                            <div className="concession-stepper">
-                              <button type="button" className="stepper-btn" onClick={() => updateConcessionQuantity(group.key, rowIndex, -1)}>-</button>
-                              <button type="button" className="stepper-btn" onClick={() => updateConcessionQuantity(group.key, rowIndex, 1)}>+</button>
-                              <button type="button" className="stepper-btn stepper-btn--danger" onClick={() => removeConcessionRow(group.key, rowIndex)}>×</button>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-
-                    <button
-                      type="button"
-                      className="concession-add-btn"
-                      onClick={() => addConcessionRow(group.key, group.defaultItemKey)}
-                    >
-                      + Add another {group.title.slice(0, -1).toLowerCase()}
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
+                  );
+                })}
               </div>
             </section>
+
           </div>
 
           <aside className="booking-sidebar">
