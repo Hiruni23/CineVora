@@ -13,11 +13,14 @@ let mongoServer;
 jest.setTimeout(60000);
 
 beforeAll(async () => {
-    mongoServer = await MongoMemoryServer.create();
+    mongoServer = await MongoMemoryServer.create({
+        binary: { version: '7.0.14' }
+    });
     const uri = mongoServer.getUri();
-    
-    // ← Disconnect first (like other tests do)
-    await mongoose.disconnect();
+
+    if (mongoose.connection.readyState !== 0) {
+        await mongoose.disconnect();
+    }
     await mongoose.connect(uri);
 });
 

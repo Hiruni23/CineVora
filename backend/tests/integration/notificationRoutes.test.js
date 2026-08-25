@@ -16,10 +16,14 @@ jest.setTimeout(60000);
 
 beforeAll(async () => {
   // ✅ CONNECT TO IN-MEMORY DATABASE
-  mongoServer = await MongoMemoryServer.create();
+  mongoServer = await MongoMemoryServer.create({
+    binary: { version: '7.0.14' }
+  });
   const uri = mongoServer.getUri();
 
-  await mongoose.disconnect();
+  if (mongoose.connection.readyState !== 0) {
+    await mongoose.disconnect();
+  }
   await mongoose.connect(uri);
 
   // Clean test data

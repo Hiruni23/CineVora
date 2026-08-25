@@ -10,11 +10,15 @@ jest.setTimeout(60000);
 let mongoServer;
 
 beforeAll(async () => {
-    // Start MongoDB Memory Server
-    mongoServer = await MongoMemoryServer.create();
+    // Start MongoDB Memory Server with an explicit binary version for compatibility
+    mongoServer = await MongoMemoryServer.create({
+        binary: { version: '7.0.14' }
+    });
     const mongoUri = mongoServer.getUri();
-    
-    // Connect to the in-memory database
+
+    if (mongoose.connection.readyState !== 0) {
+        await mongoose.disconnect();
+    }
     if (mongoose.connection.readyState === 0) {
         await mongoose.connect(mongoUri);
     }
