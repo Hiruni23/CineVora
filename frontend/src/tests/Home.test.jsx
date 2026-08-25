@@ -1,5 +1,6 @@
 import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
 import Home from "../pages/customers/Home";
 import { getMovies } from "../services/movieService";
@@ -19,7 +20,12 @@ describe("Home Component", () => {
     getMovies.mockResolvedValue(mockMovies);
   });
 
-  const renderHome = () => render(<Home />);
+  const renderHome = () =>
+    render(
+      <MemoryRouter>
+        <Home />
+      </MemoryRouter>
+    );
 
   test("renders Now Showing and Coming Soon sections", async () => {
     renderHome();

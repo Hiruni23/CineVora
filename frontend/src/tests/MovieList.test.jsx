@@ -58,8 +58,8 @@ describe("MovieList Component", () => {
     renderComponent();
     await waitFor(() => screen.getByText("Action Movie"));
 
-    const [genreSelect] = screen.getAllByRole("combobox");
-    fireEvent.change(genreSelect, { target: { value: "Drama" } });
+    const dramaChip = screen.getByRole("button", { name: "Drama" });
+    fireEvent.click(dramaChip);
 
     await waitFor(() => {
       expect(screen.getByText("Drama Movie")).toBeInTheDocument();
@@ -72,7 +72,7 @@ describe("MovieList Component", () => {
     renderComponent();
     await waitFor(() => screen.getByText("Action Movie"));
 
-    const [, ratingSelect] = screen.getAllByRole("combobox");
+    const ratingSelect = screen.getByLabelText("Min Rating");
     fireEvent.change(ratingSelect, { target: { value: "8" } });
 
     await waitFor(() => {
@@ -86,14 +86,14 @@ describe("MovieList Component", () => {
     renderComponent();
     await waitFor(() => screen.getByText("Action Movie"));
 
-    const [genreSelect, ratingSelect] = screen.getAllByRole("combobox");
+    const fantasyChip = screen.getByRole("button", { name: "Fantasy" });
+    fireEvent.click(fantasyChip);
 
-    fireEvent.change(genreSelect, { target: { value: "Fantasy" } });
+    const ratingSelect = screen.getByLabelText("Min Rating");
     fireEvent.change(ratingSelect, { target: { value: "9" } });
 
     await waitFor(() => {
-      const noMoviesMessages = screen.getAllByText("No movies found for selected filters.");
-      expect(noMoviesMessages).toHaveLength(2); // Now Showing + Coming Soon
+      expect(screen.getByText("No movies found")).toBeInTheDocument();
       expect(screen.queryByText("Action Movie")).not.toBeInTheDocument();
       expect(screen.queryByText("Drama Movie")).not.toBeInTheDocument();
       expect(screen.queryByText("Comedy Movie")).not.toBeInTheDocument();
